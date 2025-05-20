@@ -3,11 +3,11 @@
 #  Autor: SteveCarpio-2024
 # ----------------------------------------------------------------------------------------
 
-#import cfg.CNBV_Barrido_variables_v2 as sTv
-#from   cfg.CNBV_Barrido_librerias_v2 import *
+import cfg.CNBV_variables_v2 as sTv
+from   cfg.CNBV_librerias_v2 import *
 
-import CNBV_variables_vx as sTv
-from   CNBV_librerias_vx import *
+#import CNBV_variables_vx as sTv
+#from   CNBV_librerias_vx import *
 
 # ----------------------------------------------------------------------------------------
 #                               INICIO PROGRAMA
@@ -117,4 +117,4 @@ def sTv_paso2(var_NombreSalida, var_EJERCICIO, var_TRIMESTRE, var_TipoDes, var_T
     # Creo un excel con el resultado del DataFrame
     df.to_excel(f'{sTv.var_RutaInforme}{var_NombreSalida}_Datos.xlsx',sheet_name='DATA', index=False)
 
-sTv_paso2(f'CNBV_Barrido_Trime_1_2025_1', "2025", "1", "Trime", "1", ".xlsx")
+#sTv_paso2(f'CNBV_Barrido_Trime_1_2025_1', "2025", "1", "Trime", "1", ".xlsx")
