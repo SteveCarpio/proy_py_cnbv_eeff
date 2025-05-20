@@ -3,8 +3,8 @@
 #  Autor: SteveCarpio-2024
 # ----------------------------------------------------------------------------------------
 
-import cfg.CNBV_Barrido_variables_v2 as sTv
-from   cfg.CNBV_Barrido_librerias_v2 import *
+import cfg.CNBV_variables_v2 as sTv
+from   cfg.CNBV_librerias_v2 import *
 
 # ----------------------------------------------------------------------------------------
 #                                    INICIO WEB SCRAPPING
@@ -48,12 +48,12 @@ def sTv_paso1(var_NombreSalida, var_EJERCICIO, var_TRIMESTRE, var_TIPODESCARGA):
         web_celdaTxt2.send_keys(var_TRIMESTRE)
         time.sleep(2)
 
-    # Cargo el maximo de elementos de la web a 20, no pongo 50 pq el orden de las cajas varian
+    # Cargo el máximo de elementos de la web a 20, no pongo 50 pq el orden de las cajas varían
     web_numElem = driver.find_element(By.XPATH, '//*[@id="tablaInfEnviada_length"]/label/select')
     web_numElem.send_keys(20)          
     time.sleep(5)
 
-    # Obtener el valor Maximo de paginas **** STV: si no existe mas de 5 pag deberia hacer un TRY y q el valor web_NumMaximoPag sea 5
+    # Obtener el valor Maximo de paginas **** STV: si no existe mas de 5 pag debería hacer un TRY y q el valor web_NumMaximoPag sea 5
     lnk1=driver.find_element(By.XPATH,'//*[@id="tablaInfEnviada_paginate"]/span/a[6]')
     web_NumMaximoPag = lnk1.text
     web_NumMaximoPag = int(web_NumMaximoPag) 
@@ -65,7 +65,7 @@ def sTv_paso1(var_NombreSalida, var_EJERCICIO, var_TRIMESTRE, var_TIPODESCARGA):
             # Hago click en las primeras 5 cajas que son fijas
             web_paginas=f'//*[@id="tablaInfEnviada_paginate"]/span/a[{i}]'
         else:
-            # Hago click en la 4 caja que es dinamica para cada pagina cuando se hizo click en la 5pag
+            # Hago click en la 4 caja que es dinámica para cada pagina cuando se hizo click en la 5pag
             web_paginas=f'//*[@id="tablaInfEnviada_paginate"]/span/a[4]'
 
         if i == web_NumMaximoPag -1:
@@ -79,13 +79,13 @@ def sTv_paso1(var_NombreSalida, var_EJERCICIO, var_TRIMESTRE, var_TIPODESCARGA):
         print(f" Click pagina {i} link fijado")
         try:
             lnk2.click()
-            print(f" Click pagina {i} link clickeado")
+            print(f" Click pagina {i} link clicked")
             time.sleep(4)
         except:
             print(" Hubo un error o se acabaron las paginas")
             break
 
-        # Extraer el cofigo HTML entero
+        # Extraer el código HTML entero
         page_source = driver.find_element("xpath", "//*").get_attribute("outerHTML") 
         salidaHtml=f'{sTv.var_RutaWebFiles}{var_NombreSalida}_{i}.html'
         with open(salidaHtml, "w", encoding="utf-8") as file:

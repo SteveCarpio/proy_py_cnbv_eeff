@@ -6,13 +6,13 @@
 # Versión: V2 2025
 # ----------------------------------------------------------------------------------------
 
-from   cfg.CNBV_Barrido_librerias_v2 import *
-from   cfg.CNBV_Barrido_paso0_v2 import sTv_paso0
-from   cfg.CNBV_Barrido_paso1_v3 import sTv_paso1
-from   cfg.CNBV_Barrido_paso2_v3 import sTv_paso2
-from   cfg.CNBV_Barrido_paso3_v2 import sTv_paso3
-from   cfg.CNBV_Barrido_paso4_v2 import sTv_paso4
-from   cfg.CNBV_Barrido_paso5_v2 import sTv_paso5
+from   cfg.CNBV_librerias_v2 import *
+from   cnbv.CNBV_paso0_v2 import sTv_paso0
+from   cnbv.CNBV_paso1_v3 import sTv_paso1
+from   cnbv.CNBV_paso2_v3 import sTv_paso2
+from   cnbv.CNBV_paso3_v2 import sTv_paso3
+from   cnbv.CNBV_paso4_v2 import sTv_paso4
+from   cnbv.CNBV_paso5_v2 import sTv_paso5
 
 os.system('cls')
 print(f"WebScraping: CNBV v2.0 \n")
@@ -56,7 +56,7 @@ match var_opcion:
         print(f"    ¡Atención! Valor erróneo ({var_opcion}) probar con (1 , 2)")
         sys.exit()
 # ----------------------------------------------------------------------------------------
-#                                  PARAMETROS DE APOYO
+#                                  PARÁMETROS DE APOYO
 # ----------------------------------------------------------------------------------------
 # Definir el tipo de fichero a exportar
 if int(var_TIPOFILE) == 1:
@@ -105,7 +105,7 @@ sTv_paso2(f'CNBV_Barrido_Trime_1_2025_1', "2025", "1", "Trime", "1", ".xlsx")
 #                                  EJECUCION PASOS
 # ----------------------------------------------------------------------------------------
 var_tit0 = f'CREAR Y LIMPIAR LOS REPOSITORIOS'
-var_tit1 = f'NAVEGAR POR LA WEB CNBV Y DESCARGAR LOS CODIGOS "HTML"'
+var_tit1 = f'NAVEGAR POR LA WEB CNBV Y DESCARGAR LOS CÓDIGOS "HTML"'
 var_tit2 = f'CREAR INFORME "DATOS" CON LA LINEA "CURL"'
 var_tit3 = f'DESCARGA FICHEROS "...{var_extencion}" A PARTIR DEL EXCEL "DATOS"'
 var_tit4 = f'CREAR INFORME "TOTALES" A PARTIR DE LOS EXCEL DESCARGADOS'

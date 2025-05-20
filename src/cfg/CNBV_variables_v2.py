@@ -10,14 +10,14 @@
 var_CHROMEDRIVER="C:/MisCompilados/cfg/chromedriver-win32/chromedriver.exe"
 
 # ----------------------------------------------------------------------------------------
-#                          URL WEBSCARPING
+#                          URL WEB-SCRAPING
 # ----------------------------------------------------------------------------------------
 var_WEBSCRAPING="https://xbrl.cnbv.gob.mx/visorXbrl.html#/enviosInformacionFinanciera"
 
 # ----------------------------------------------------------------------------------------
 #                          RUTAS DE APOYO
 # ----------------------------------------------------------------------------------------
-var_RutaRaiz='C:\\MisCompilados\\PROY_CNBV_Barrido\\'
+var_RutaRaiz='C:\\MisCompilados\\PROY_CNBV_EEFF\\'
 var_RutaWebFiles=f'{var_RutaRaiz}WEBFILES\\'
 var_RutaInforme=f'{var_RutaRaiz}INFORMES\\'
 var_RutaXls=f'{var_RutaRaiz}XLS\\'

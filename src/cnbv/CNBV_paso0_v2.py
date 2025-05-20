@@ -1,10 +1,10 @@
 # ----------------------------------------------------------------------------------------
 #  PASO0: VALIDAR REQUISITOS PREVIOS 
+#  Autor: SteveCarpio-2024
 # ----------------------------------------------------------------------------------------
 
-import cfg.CNBV_Barrido_config as sTv
-from   cfg.CNBV_Barrido_config import *
-
+import cfg.CNBV_variables_v2 as sTv
+from   cfg.CNBV_librerias_v2 import *
 
 # ----------------------------------------------------------------------------------------
 #                                  FUNCIONES
@@ -35,17 +35,18 @@ def borrar_archivos(ruta_carpeta, patron):
 #                               INICIO PROGRAMA
 # ----------------------------------------------------------------------------------------
 
-# Valida carpetas de CNBV
-valida_carpetas(sTv.var_RutaRaiz)
-valida_carpetas(sTv.var_RutaWebFiles)
-valida_carpetas(sTv.var_RutaInforme)
-valida_carpetas(sTv.var_RutaXls)
+def sTv_paso0(var_NombreSalida, var_EJERCICIO, var_TRIMESTRE, var_TipoDes):
+    # Valida carpetas de CNBV
+    valida_carpetas(sTv.var_RutaRaiz)
+    valida_carpetas(sTv.var_RutaWebFiles)
+    valida_carpetas(sTv.var_RutaInforme)
+    valida_carpetas(sTv.var_RutaXls)
 
-# Borra files descargados de CNBV
-borrar_archivos(sTv.var_RutaWebFiles, f'{sTv.var_NombreSalida}_*.html')
-borrar_archivos(sTv.var_RutaXls, f'{sTv.var_TipoDes}_{sTv.var_EJERCICIO}_{sTv.var_TRIMESTRE}__*.xlsx')
-borrar_archivos(sTv.var_RutaInforme, f'{sTv.var_NombreSalida}_Datos.xlsx')
-borrar_archivos(sTv.var_RutaInforme, f'{sTv.var_NombreSalida}_Final.xlsx')
-borrar_archivos(sTv.var_RutaInforme, f'{sTv.var_NombreSalida}_Totales.xlsx')
+    # Borra files descargados de CNBV
+    borrar_archivos(sTv.var_RutaWebFiles, f'*.html')      #  f'{var_NombreSalida}_*.html'
+    borrar_archivos(sTv.var_RutaXls, f'*.xlsx')           #  f'{var_TipoDes}_{var_EJERCICIO}_{var_TRIMESTRE}__*.xlsx'
+    borrar_archivos(sTv.var_RutaInforme, f'{var_NombreSalida}_Datos.xlsx')
+    borrar_archivos(sTv.var_RutaInforme, f'{var_NombreSalida}_Final.xlsx')
+    borrar_archivos(sTv.var_RutaInforme, f'{var_NombreSalida}_Totales.xlsx')
 
-print(" Requisitos previos ok ")
+    print(" Requisitos previos ok ")

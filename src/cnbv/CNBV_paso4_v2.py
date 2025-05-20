@@ -3,8 +3,8 @@
 #  Autor: SteveCarpio-2024
 # ----------------------------------------------------------------------------------------
 
-import cfg.CNBV_Barrido_variables_v2 as sTv
-from   cfg.CNBV_Barrido_librerias_v2 import *
+import cfg.CNBV_variables_v2 as sTv
+from   cfg.CNBV_librerias_v2 import *
 
 # ----------------------------------------------------------------------------------------
 #                             INICIO DE PROGRAMA
@@ -48,10 +48,10 @@ def sTv_paso4(var_NombreSalida, var_EJERCICIO, var_TRIMESTRE, var_TIPODESCARGA, 
 
             var_cont2=0
 
-            # Recorremos las listas agrupdas
+            # Recorremos las listas agrupadas
             for i,lista in enumerate(filtroX):
                 var_cont2 = var_cont2 + 1
-                # Identificamos el libro de deonde extraer los datos
+                # Identificamos el libro de donde extraer los datos
                 if var_cont2 == 6 or var_cont2 == 7:
                     var_libroX = sTv.var_libro2
                 else:
@@ -63,7 +63,7 @@ def sTv_paso4(var_NombreSalida, var_EJERCICIO, var_TRIMESTRE, var_TIPODESCARGA, 
                     valor_columna_1 = row.iloc[1]  # La columna B
                     valor_columna_2 = row.iloc[2]  # La columna C
                     
-                    # Insertamos el valor localizdo en un nueva lista con los resultados
+                    # Insertamos el valor localizado en un nueva lista con los resultados
                     resultados.append([var_Iden,var_libroX,valor_columna_0,valor_columna_1, valor_columna_2,archivo])
             
     # Crear un DataFrame con los resultados encontrados

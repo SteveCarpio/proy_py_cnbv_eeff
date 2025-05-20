@@ -3,18 +3,18 @@
 #  Autor: SteveCarpio-2024
 # ----------------------------------------------------------------------------------------
 
-import cfg.CNBV_Barrido_variables_v2 as sTv
-from   cfg.CNBV_Barrido_librerias_v2 import *
+import cfg.CNBV_variables_v2 as sTv
+from   cfg.CNBV_librerias_v2 import *
 
 # ----------------------------------------------------------------------------------------
 #                              FUNCIONES
 # ----------------------------------------------------------------------------------------
 
 # ----------------------------------------------------------------------------------------
-# Funcion: funcion_crea_excelSalida ------------------------------------------------------
+# Función: funcion_crea_excelSalida ------------------------------------------------------
 # ----------------------------------------------------------------------------------------
 def funcion_crea_excelSalida(archivo_destino):
-    print(f'   Creado excel FINAL vacio: {archivo_destino}')
+    print(f'   Creado excel FINAL vació: {archivo_destino}')
 
     # Crear un nuevo archivo Excel para el resumen
     wb = Workbook()

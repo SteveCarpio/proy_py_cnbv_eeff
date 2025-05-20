@@ -3,8 +3,8 @@
 #  Autor: SteveCarpio-2024
 # ----------------------------------------------------------------------------------------
 
-import cfg.CNBV_Barrido_variables_v2 as sTv
-from   cfg.CNBV_Barrido_librerias_v2 import *
+import cfg.CNBV_variables_v2 as sTv
+from   cfg.CNBV_librerias_v2 import *
 
 # ----------------------------------------------------------------------------------------
 #                                  FUNCIONES
@@ -39,7 +39,7 @@ def sTv_paso3(var_NombreSalida):
             var_sumaerrores = var_sumaerrores + 1
 
     if var_sumaerrores != 0:
-        print("¡¡¡ ATENCION !!!")
+        print("¡¡¡ ATENCIÓN !!!")
         print(f'  En el proceso de descarga han ocurrido ({var_sumaerrores} errores)')
         print(f'  Revisar la LOG y comparar con el EXCEL {sTv.var_RutaInforme}{var_NombreSalida}.xlsx')
         print(f'  Pruebe a descarga a mano los files que dan error con sentencia CURL del excel')

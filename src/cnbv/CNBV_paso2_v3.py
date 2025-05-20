@@ -6,8 +6,8 @@
 #import cfg.CNBV_Barrido_variables_v2 as sTv
 #from   cfg.CNBV_Barrido_librerias_v2 import *
 
-import CNBV_Barrido_variables_v2 as sTv
-from   CNBV_Barrido_librerias_v2 import *
+import CNBV_variables_vx as sTv
+from   CNBV_librerias_vx import *
 
 # ----------------------------------------------------------------------------------------
 #                               INICIO PROGRAMA
@@ -17,7 +17,7 @@ def sTv_paso2(var_NombreSalida, var_EJERCICIO, var_TRIMESTRE, var_TipoDes, var_T
 
     print("VERSION 3")
 
-    # Realizar la busqueda de todos los ficheros HTML según el patrón seleccionado
+    # Realizar la búsqueda de todos los ficheros HTML según el patrón seleccionado
     var_Patron=f'{var_NombreSalida}*.html'
     var_ArchivosHtml = glob.glob(f'{sTv.var_RutaWebFiles}{var_Patron}')
     var_ArchivosSort = sorted(var_ArchivosHtml, key=os.path.getctime)
