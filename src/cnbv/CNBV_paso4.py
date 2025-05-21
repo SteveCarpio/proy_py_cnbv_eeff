@@ -3,8 +3,8 @@
 #  Autor: SteveCarpio-2024
 # ----------------------------------------------------------------------------------------
 
-import cfg.CNBV_variables_v2 as sTv
-from   cfg.CNBV_librerias_v2 import *
+import cfg.CNBV_variables as sTv
+from   cfg.CNBV_librerias import *
 
 # ----------------------------------------------------------------------------------------
 #                             INICIO DE PROGRAMA
@@ -21,6 +21,10 @@ def sTv_paso4(var_NombreSalida, var_EJERCICIO, var_TRIMESTRE, var_TIPODESCARGA, 
     resultados = []
     var_cont=0
     var_cont_total=len(glob.glob(f'{sTv.var_RutaXls}{var_TipoDes}_{var_EJERCICIO}_{var_TRIMESTRE}__*.xlsx'))
+
+    if var_cont_total == 0:
+        print(Fore.RED + f"¡No existen ficheros Excel ({sTv.var_RutaXls}{var_TipoDes}_{var_EJERCICIO}_{var_TRIMESTRE}__*.xlsx).\n")
+        sys.exit(0)
 
     # Iterar sobre todos los archivos en la carpeta
     for archivo in os.listdir(sTv.var_RutaXls):

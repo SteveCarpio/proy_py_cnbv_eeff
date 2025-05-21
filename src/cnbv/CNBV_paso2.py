@@ -3,8 +3,8 @@
 #  Autor: SteveCarpio-2024
 # ----------------------------------------------------------------------------------------
 
-import cfg.CNBV_variables_v2 as sTv
-from   cfg.CNBV_librerias_v2 import *
+import cfg.CNBV_variables as sTv
+from   cfg.CNBV_librerias import *
 
 # ----------------------------------------------------------------------------------------
 #                               INICIO PROGRAMA
@@ -18,6 +18,10 @@ def sTv_paso2(var_NombreSalida, var_EJERCICIO, var_TRIMESTRE, var_TipoDes, var_T
     var_ArchivosSort = sorted(var_ArchivosHtml, key=os.path.getctime)
     var_ArchivosTota = len(var_ArchivosHtml)
     var_listaFinal = []
+
+    if var_ArchivosTota == 0:
+        print(Fore.RED + "No existen datos para analizar, compruebe haber ejecutado los pasos anteriores\n")
+        sys.exit()
 
     print(f'TipoDescarga: {var_TipoDes} \nAño: {var_EJERCICIO} \nTrimestre: {var_TRIMESTRE} \nTotalFiles: {var_ArchivosTota}\n')
 

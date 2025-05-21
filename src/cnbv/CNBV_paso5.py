@@ -1,10 +1,11 @@
 # ----------------------------------------------------------------------------------------
 #  PASO5: CREA INFORME FINAL A PARTIR DE LOS EXCEL CREADOS "DATOS" y "TOTALES"
-#  Autor: SteveCarpio-2024
+#         Solo creará el informe para trimestrales, para el resto se saldrá del proceso
+#  Autor: SteveCarpio-2025
 # ----------------------------------------------------------------------------------------
 
-import cfg.CNBV_variables_v2 as sTv
-from   cfg.CNBV_librerias_v2 import *
+import cfg.CNBV_variables as sTv
+from   cfg.CNBV_librerias import *
 
 # ----------------------------------------------------------------------------------------
 #                              FUNCIONES
@@ -139,36 +140,29 @@ def funcion_crea_excelTotales2(par_archivo_origen1, par_archivo_origen2, par_arc
         df_transposed.to_excel(writer, sheet_name=par_nombre_hoja_destino, index=False)
 
 # ----------------------------------------------------------------------------------------
-# Funcion: funcion_formatea_excelFinal ---------------------------------------------------
+# Funcion: funcion_formatea_excelFinal ----------------NO FUNCIONA------------------------
 # ----------------------------------------------------------------------------------------
 def funcion_formatea_excelFinal2(par_archivo_destino):
     print(f'   Formateando excel FINAL ')
-
     par_archivo_destino = 'C:\\MisCompilados\\PROY_CNBV_EEFF\\INFORMES\\CNBV_EEFF_Trime_3_2024_1_Final.xlsx'
-
     # Cargar el excel FINAL    
     wb = openpyxl.load_workbook(par_archivo_destino)
     ws = wb["TOTALES2"]  # Selecciona la hoja "TOTALES2"
-   
     # 1. Colorear un rango de celdas
     fill_color = PatternFill(start_color="FFFF00", end_color="FFFF00", fill_type="solid")  # Color amarillo
     for row in ws.iter_rows(min_row=1, max_row=1, min_col=1, max_col=12):
         for cell in row:
             cell.fill = fill_color
-
     # 2. Poner en negrita un rango de celdas (por ejemplo, la fila de encabezados)
     bold_font = Font(bold=True)
     for cell in ws[1]:
         cell.font = bold_font
-
     # 3. Inmovilizar la primera columna
     ws.freeze_panes = "A1"  # Inmoviliza la primera columna
-
     # 4. Ajustar el tamaño de las columnas en un rango
     for col in range(1, 13):  # Ajustar las columnas A a D
         col_letter = get_column_letter(col)
         ws.column_dimensions[col_letter].width = 15  # Ancho de 15
-    
     # Guardar el archivo Excel
     wb.save(par_archivo_destino)
 
@@ -182,6 +176,19 @@ def sTv_paso5(var_NombreSalida, var_EJERCICIO, var_TRIMESTRE, var_TIPODESCARGA, 
     archivo_origen1 = f"{sTv.var_RutaInforme}{var_NombreSalida}_Datos.xlsx"
     archivo_origen2 = f"{sTv.var_RutaInforme}{var_NombreSalida}_Totales.xlsx"
     archivo_destino = f"{sTv.var_RutaInforme}{var_NombreSalida}_Final.xlsx"
+
+    try:
+        if not os.path.exists(archivo_origen1):
+            raise FileNotFoundError(Fore.RED + f"¡Archivo no encontrado! {archivo_origen1}\n")
+    except FileNotFoundError as e:
+        print(e)
+        sys.exit(0)
+    try:
+        if not os.path.exists(archivo_origen2):
+            raise FileNotFoundError(Fore.RED + f"¡Archivo no encontrado! {archivo_origen2}\n")
+    except FileNotFoundError as e:
+        print(e)
+        sys.exit(0)
 
     # Solo vale si TRIMESTRAL = 1, no vale para MENSUAL ni ANUAL
     if var_TIPODESCARGA != 1:

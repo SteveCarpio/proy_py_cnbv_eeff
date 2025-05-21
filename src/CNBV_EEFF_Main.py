@@ -6,95 +6,95 @@
 # Versión: V3 2025
 # ----------------------------------------------------------------------------------------
 
-from   cfg.CNBV_librerias_v2 import *
-from   cnbv.CNBV_paso0_v2 import sTv_paso0
-from   cnbv.CNBV_paso1_v3 import sTv_paso1
-from   cnbv.CNBV_paso2_v3 import sTv_paso2
-from   cnbv.CNBV_paso3_v2 import sTv_paso3
-from   cnbv.CNBV_paso4_v2 import sTv_paso4
-from   cnbv.CNBV_paso5_v2 import sTv_paso5
+from   cfg.CNBV_librerias import *
+from   cnbv.CNBV_paso0 import sTv_paso0
+from   cnbv.CNBV_paso1 import sTv_paso1
+from   cnbv.CNBV_paso2 import sTv_paso2
+from   cnbv.CNBV_paso3 import sTv_paso3
+from   cnbv.CNBV_paso4 import sTv_paso4
+from   cnbv.CNBV_paso5 import sTv_paso5
 
+# Inicializar colorama
+init(autoreset=True)
+
+# ----------------------------------------------------------------------------------------
+#                                  PARÁMETROS DE ENTRADA
+# ----------------------------------------------------------------------------------------
 os.system('cls')
-print(f"WebScraping: CNBV v3.0 \n")
+print(Fore.MAGENTA + "=" * 94)
+print(Fore.MAGENTA + "  Proceso WebScraping CNBV EEFF                            |  Tipo de Descarga  : ? ")
+print(Fore.MAGENTA + "                                                           |  Periodo Trim Anual: ? ")
+print(Fore.MAGENTA + "    Ingrese los parámetros de entrada                      |  Año de Ejercicio  : ? ")
+print(Fore.MAGENTA + "    Escriba otro valor para salir del programa             |  Tipo de Fichero   : ? ")
+print(Fore.MAGENTA + "=" * 94 + "\n")
 
 # Indique el tipo de descarga: Ej. 1 (Trimestral) , 2 (Mensual), 3 (Anual)
-var_opcion = input(f" ¡Indique el Tipo de Descarga! 1 (Trimestral), 2 (Mensual), 3 (Anual) : ")
+var_opcion = input(Fore.GREEN + " ¡Indique el Tipo de Descarga! 1 (Trimestral), 2 (Mensual), 3 (Anual) : ")
 match var_opcion:
     case "1" | "2" | "3":
         var_TIPODESCARGA = int(var_opcion)
     case _:
-        print(f"    ¡Atención! Valor erróneo ({var_opcion}) probar con 1, 2, 3")
+        print(Fore.RED + f"\n    ¡Atención! Valor erróneo ({var_opcion}) probar con 1, 2, 3\n")
         sys.exit()
 
 # Indique el trimestre (solo para var_TIPODESCARGA=1): Ej. 1, 2, 3, 4, 4D
-var_TRIMESTRE = input(f" ¡Indique el Periodo Trimestral Anual! (1, 2, 3, 4, 4D)               : ")
+var_TRIMESTRE = input(Fore.GREEN + f" ¡Indique el Periodo Trimestral Anual! (1, 2, 3, 4, 4D)               : ")
 var_trime_tmp = ["1","2","3","4","4D"]
 if str(var_TRIMESTRE) not in str(var_trime_tmp):
-    print(f"    ¡Atención! Valor erróneo ({var_TRIMESTRE}) probar con (1, 2, 3, 4, 4D)")
+    print(Fore.RED + f"\n    ¡Atención! Valor erróneo ({var_TRIMESTRE}) probar con (1, 2, 3, 4, 4D)\n")
     sys.exit()
 
 # Indique el ejercicio: Ej. 2022, 2023, 2024
-var_opcion = input(f" ¡Indique el Año de Ejercicio!                                        : ")
+var_opcion = input(Fore.GREEN + f" ¡Indique el Año de Ejercicio!                                        : ")
 if var_opcion.isdigit():
     var_EJERCICIO = int(var_opcion)
-    if var_EJERCICIO < 1990 or var_EJERCICIO > 2030:
-        print("    ¡Atención! Año fuera del rango")
+    if var_EJERCICIO < 2020 or var_EJERCICIO > 2030:
+        print(Fore.RED + "\n    ¡Atención! Año fuera del rango (2020 a 2030)\n")
         sys.exit()
 else:
-    print(f"    ¡Atención! Valor erróneo ({var_opcion}) probar con (1990 > ... < 2030)")
+    print(Fore.RED + f"\n    ¡Atención! Valor erróneo ({var_opcion}) probar con (1990 > ... < 2030)\n")
     sys.exit()
 
 # Tipo de Fichero a descargar (1 - excel ,2 pdf , 3 ......)
-var_opcion = input(f" ¡Indique el Tipo Fichero para Descargar!  1 (.xlsx), 2 (.pdf)        : ")
+var_opcion = input(Fore.GREEN + f" ¡Indique el Tipo Fichero para Descargar!  1 (.xlsx), 2 (.pdf)        : ")
 match var_opcion:
     case "1" | "2":
         var_TIPOFILE = int(var_opcion)
         if var_TIPOFILE < 1 or var_TIPOFILE > 2:
-            print("    ¡Atención! Valor fuera del rango (1 , 2)")
+            print(Fore.RED + "\n    ¡Atención! Valor fuera del rango (1 , 2)\n")
             sys.exit()
     case _:
-        print(f"    ¡Atención! Valor erróneo ({var_opcion}) probar con (1 , 2)")
+        print(Fore.RED + f"\n    ¡Atención! Valor erróneo ({var_opcion}) probar con (1 , 2)\n")
         sys.exit()
+
 # ----------------------------------------------------------------------------------------
-#                                  PARÁMETROS DE APOYO
+#                            DEFINIR PARÁMETROS DE APOYO
 # ----------------------------------------------------------------------------------------
 # Definir el tipo de fichero a exportar
 if int(var_TIPOFILE) == 1:
     var_extencion=".xlsx"
+    var_extencion2="Excel"
 elif int(var_TIPOFILE) == 2:
     var_extencion=".pdf"
+    var_extencion2="Pdf"
 else:
     var_extencion=".xxx"
+    var_extencion2="Desconocido"
 
 # Crear variable de tipo de descarga
 if var_TIPODESCARGA == 1:
     var_TipoDes="Trime"
+    var_TipoDes2="Trimestral"
 elif var_TIPODESCARGA == 2:
     var_TipoDes="Mensu"
+    var_TipoDes2="Mensual"
 elif var_TIPODESCARGA == 3:
     var_TipoDes="Anual"
+    var_TipoDe2=var_TipoDes
 
 # Para evitar que entre el trimestre si es mensual o anual 
 if var_TIPODESCARGA != 1:
     var_TRIMESTRE = ""
-
-
-
-# -----
-os.system('cls')
-print(f'Parámetros seleccionados: \n')
-print(f'   TIPO DE DESCARGA   : {var_TIPODESCARGA} - {var_TipoDes}')
-print(f'   PERIODO TRIMESTRAL : {var_TRIMESTRE}')
-print(f'   AÑO DE EJERCICIO   : {var_EJERCICIO}')
-print(f'   TIPO DE FICHERO    : {var_TIPOFILE} - {var_extencion}')
-continuar = "n"
-continuar = input("\n      ¿Ejecutamos el proceso (s/n)?\n>>> ")
-
-if continuar not in ("s","S"): 
-    print(" --- Exit del programa. --- ")
-    sys.exit()
-    
-
 
 # Nombres de Salida
 var_NombreSalida= f'CNBV_EEFF_{var_TipoDes}_{var_TRIMESTRE}_{var_EJERCICIO}_{var_TIPOFILE}'
@@ -120,77 +120,94 @@ var_tmp9 = " "
 
 while True:
     os.system('cls')
-    print(f'Ingresa el paso a Ejecutar: [ CNBV_EEFF_{var_TipoDes}_{var_TRIMESTRE}_{var_EJERCICIO}_{var_TIPOFILE}_......xlsx ] \n')
-    print(f'{var_tmp0}   0 = {var_tit0}')
-    print(f'{var_tmp1}   1 = {var_tit1}')
-    print(f'{var_tmp2}   2 = {var_tit2}')
-    print(f'{var_tmp3}   3 = {var_tit3}')
-    print(f'{var_tmp4}   4 = {var_tit4}')
-    print(f'{var_tmp5}   5 = {var_tit5}')
-    print(f'{var_tmp9}   9 = {var_tit9}') 
-    print(f'\n                      ¡ Para SALIR escriba otro valor !')
-    var_PASO = input("\n>>> ")
+    
+    print(Fore.MAGENTA + "=" * 94)
+    print(Fore.MAGENTA + "  Proceso WebScraping CNBV EEFF                            |  Tipo de Descarga  : " + var_TipoDes2)
+    print(Fore.MAGENTA + "                                                           |  Periodo Trim Anual: " + var_TRIMESTRE)
+    print(Fore.MAGENTA + "    Ejecutar los pasos del proyecto                        |  Año de Ejercicio  : " + str(var_EJERCICIO))
+    print(Fore.MAGENTA + "    Escriba otro valor para salir del programa             |  Tipo de Fichero   : " + var_extencion2)
+    print(Fore.MAGENTA + "=" * 94 + "\n")
+
+    print(Fore.LIGHTWHITE_EX + f'{var_tmp0}   0 = {var_tit0}')
+    print(Fore.YELLOW + f'{var_tmp1}   1 = {var_tit1}')
+    print(Fore.GREEN + f'{var_tmp2}   2 = {var_tit2}')
+    print(Fore.YELLOW + f'{var_tmp3}   3 = {var_tit3}')
+    print(Fore.BLUE + f'{var_tmp4}   4 = {var_tit4}')
+    print(Fore.BLUE + f'{var_tmp5}   5 = {var_tit5}')
+    print(Fore.LIGHTWHITE_EX + f'{var_tmp9}   9 = {var_tit9}') 
+    print(Fore.MAGENTA + f'    ? = AYUDA')
+    print(Fore.MAGENTA + f'\n                      ¡ Para SALIR escriba otro valor !')
+    var_PASO = input(Fore.MAGENTA + "\n>>> ")
 
     match var_PASO:
         case "0":
             # Ejecución del paso 0
-            print(f' \n--------------------------------- [ {var_tit0} ]\n ')
+            print(Fore.LIGHTWHITE_EX + f' \n--------------------------------- [ {var_tit0} ]\n ')
             sTv_paso0(var_NombreSalida, var_EJERCICIO, var_TRIMESTRE, var_TipoDes)
             var_tmp0 = '*'
 
         case "1":
             # Ejecución del paso 1
-            print(f' \n--------------------------------- [ {var_tit1} ]\n ')
+
+            if var_tmp0 != '*':  # Si no ejecuto el paso 0 lo invoco
+                # Ejecución del paso 0
+                print(Fore.LIGHTWHITE_EX + f' \n--------------------------------- [ {var_tit0} ]\n ')
+                sTv_paso0(var_NombreSalida, var_EJERCICIO, var_TRIMESTRE, var_TipoDes)
+                var_tmp0 = '*'
+
+            print(Fore.YELLOW + f' \n--------------------------------- [ {var_tit1} ]\n ')
             sTv_paso1(var_NombreSalida, var_EJERCICIO, var_TRIMESTRE, var_TIPODESCARGA)
             var_tmp1 = '*'
 
         case "2":        
             # Ejecución del paso 2
-            print(f' \n--------------------------------- [ {var_tit2} ]\n ')
+            print(Fore.GREEN + f' \n--------------------------------- [ {var_tit2} ]\n ')
             sTv_paso2(var_NombreSalida, var_EJERCICIO, var_TRIMESTRE, var_TipoDes, var_TIPOFILE, var_extencion)
             var_tmp2 = '*'
 
         case "3":
             # Ejecución del paso 3 
-            print(f' \n--------------------------------- [ {var_tit3} ]\n ')
+            print(Fore.YELLOW + f' \n--------------------------------- [ {var_tit3} ]\n ')
             sTv_paso3(var_NombreSalida)
             var_tmp3 = '*'
 
         case "4":
             # Ejecución del paso 4 
-            print(f' \n--------------------------------- [ {var_tit4} ]\n ')
+            print(Fore.BLUE + f' \n--------------------------------- [ {var_tit4} ]\n ')
             sTv_paso4(var_NombreSalida, var_EJERCICIO, var_TRIMESTRE, var_TIPODESCARGA, var_TipoDes)
             var_tmp4 = '*'
             
         case "5":
             # Ejecución del paso 5 
-            print(f' \n--------------------------------- [ {var_tit5} ]\n ')
+            print(Fore.BLUE + f' \n--------------------------------- [ {var_tit5} ]\n ')
             sTv_paso5(var_NombreSalida, var_EJERCICIO, var_TRIMESTRE, var_TIPODESCARGA, var_TipoDes)
             var_tmp5 = '*'
 
         case "9":
-            print(f' \n--------------------------------- [ {var_tit0} ]\n ')
+            print(Fore.LIGHTWHITE_EX + f' \n--------------------------------- [ {var_tit0} ]\n ')
             sTv_paso0(var_NombreSalida, var_EJERCICIO, var_TRIMESTRE, var_TipoDes)
-            print(f' \n--------------------------------- [ {var_tit1} ]\n ')
+            print(Fore.YELLOW + f' \n--------------------------------- [ {var_tit1} ]\n ')
             sTv_paso1(var_NombreSalida, var_EJERCICIO, var_TRIMESTRE, var_TIPODESCARGA)
-            print(f' \n--------------------------------- [ {var_tit2} ]\n ')
+            print(Fore.GREEN + f' \n--------------------------------- [ {var_tit2} ]\n ')
             sTv_paso2(var_NombreSalida, var_EJERCICIO, var_TRIMESTRE, var_TipoDes, var_TIPOFILE, var_extencion)
-            print(f' \n--------------------------------- [ {var_tit3}]\n ')
+            print(Fore.YELLOW + f' \n--------------------------------- [ {var_tit3}]\n ')
             sTv_paso3(var_NombreSalida)
-            print(f' \n--------------------------------- [ {var_tit4} ]\n ')
+            print(Fore.BLUE + f' \n--------------------------------- [ {var_tit4} ]\n ')
             sTv_paso4(var_NombreSalida, var_EJERCICIO, var_TRIMESTRE, var_TIPODESCARGA, var_TipoDes)
-            print(f' \n--------------------------------- [ {var_tit5} ]\n ')
+            print(Fore.BLUE + f' \n--------------------------------- [ {var_tit5} ]\n ')
             sTv_paso5(var_NombreSalida, var_EJERCICIO, var_TRIMESTRE, var_TIPODESCARGA, var_TipoDes)
             var_tmp9 = '*'
+        case "?":
+            print("Ayuda.........")
 
         case _:
-            print(f"    ¡Atención! Valor erróneo ({var_PASO}) probar con (0, 1, 2, 3, 4, 5, 9)")
+            print(Fore.RED + f"    ¡Atención! Valor erróneo ({var_PASO}) probar con (0, 1, 2, 3, 4, 5, 9)")
     
-    continuar = input("\n\n¿Quiere continuar con otro paso o salimos del programa?:  S/N >>> ").strip()
+    continuar = input(Fore.MAGENTA + "\n\n¿Quiere continuar?:  S/N >>> ").strip()
     if continuar.upper() != "S":
         break
 
-print("\n------------- [ FIN ] ------------- ")
+#print("\n------------- [ FIN ] ------------- ")
 
 
         

@@ -3,8 +3,8 @@
 #  Autor: SteveCarpio-2024
 # ----------------------------------------------------------------------------------------
 
-import cfg.CNBV_variables_v2 as sTv
-from   cfg.CNBV_librerias_v2 import *
+import cfg.CNBV_variables as sTv
+from   cfg.CNBV_librerias import *
 
 # ----------------------------------------------------------------------------------------
 #                                    INICIO WEB SCRAPPING

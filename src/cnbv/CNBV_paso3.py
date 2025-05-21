@@ -3,8 +3,8 @@
 #  Autor: SteveCarpio-2024
 # ----------------------------------------------------------------------------------------
 
-import cfg.CNBV_variables_v2 as sTv
-from   cfg.CNBV_librerias_v2 import *
+import cfg.CNBV_variables as sTv
+from   cfg.CNBV_librerias import *
 
 # ----------------------------------------------------------------------------------------
 #                                  FUNCIONES
@@ -22,11 +22,21 @@ def descargo_ficheros_curl(v_curl):
 
 def sTv_paso3(var_NombreSalida):
 
-    var_sumaerrores=0
+    try:
+        if not os.path.exists(f'{sTv.var_RutaInforme}{var_NombreSalida}_Datos.xlsx'):
+            raise FileNotFoundError(Fore.RED + f"¡Archivo no encontrado! {f'{sTv.var_RutaInforme}{var_NombreSalida}_Datos.xlsx'}\n")
+        # Leo el excel con la lista de todos los curl a descargar
+        df = pd.read_excel(f'{sTv.var_RutaInforme}{var_NombreSalida}_Datos.xlsx')
+    except FileNotFoundError as e:
+        print(e)
+        sys.exit(0)
 
-    # Leo el excel con la lista de todos los curl a descargar
-    df = pd.read_excel(f'{sTv.var_RutaInforme}{var_NombreSalida}_Datos.xlsx')
     numRegDf = len(df)
+    if numRegDf == 0:
+        print(Fore.RED + f"Algo paso con el fichero ({sTv.var_RutaInforme}{var_NombreSalida}_Datos.xlsx) no debe tener registros.\n")
+        sys.exit(0)
+
+    var_sumaerrores=0
 
     # Recorro el DataFrame y invoco la descarga por CMD
     for i, row in df.iterrows():
@@ -39,8 +49,8 @@ def sTv_paso3(var_NombreSalida):
             var_sumaerrores = var_sumaerrores + 1
 
     if var_sumaerrores != 0:
-        print("¡¡¡ ATENCIÓN !!!")
-        print(f'  En el proceso de descarga han ocurrido ({var_sumaerrores} errores)')
-        print(f'  Revisar la LOG y comparar con el EXCEL {sTv.var_RutaInforme}{var_NombreSalida}.xlsx')
-        print(f'  Pruebe a descarga a mano los files que dan error con sentencia CURL del excel')
-        print(f'        más info:  {sTv.var_sTv1} - {sTv.var_sTv2}')
+        print(Fore.RED + "¡¡¡ ATENCIÓN !!!")
+        print(Fore.RED + f'  En el proceso de descarga han ocurrido ({var_sumaerrores} errores)')
+        print(Fore.RED + f'  Revisar la LOG y comparar con el EXCEL {sTv.var_RutaInforme}{var_NombreSalida}.xlsx')
+        print(Fore.RED + f'  Pruebe a descarga a mano los files que dan error con sentencia CURL del excel')
+        print(Fore.RED + f'        más info:  {sTv.var_sTv1} - {sTv.var_sTv2}')
