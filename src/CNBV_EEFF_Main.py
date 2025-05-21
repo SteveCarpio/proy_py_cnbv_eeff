@@ -201,7 +201,8 @@ while True:
             print("Ayuda.........")
 
         case _:
-            print(Fore.RED + f"    ¡Atención! Valor erróneo ({var_PASO}) probar con (0, 1, 2, 3, 4, 5, 9)")
+            print(Fore.RED + f"    ¡Saliendo del programa!\n")
+            sys.exit(0)
     
     continuar = input(Fore.MAGENTA + "\n\n¡Pulse una tecla para continuar! ").strip()
     #if continuar.upper() != "S":

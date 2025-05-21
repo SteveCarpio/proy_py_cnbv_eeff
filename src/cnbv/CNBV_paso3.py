@@ -41,10 +41,11 @@ def sTv_paso3(var_NombreSalida):
     # Recorro el DataFrame y invoco la descarga por CMD
     for i, row in df.iterrows():
         var_result, var_error, var_codigo = descargo_ficheros_curl(row['CURL'])
-        print(f"--- Descargando ({i+1}/{numRegDf}): {row['FileXbrl']} ---")
-        print(f"Resultado de curl:{var_result}")
-        print(f"Resultado de warn\n{var_error}")
-        print(f"Código de retorno: {var_codigo}")
+        print(Fore.YELLOW + f"\n--- Descargando ({i+1}/{numRegDf}): {row['FileXbrl']} ---")
+        #print(f" Resultado de curl:{var_result}")
+        #print(f" Resultado de warn\n{var_error}")
+        #print(f" Código de retorno: {var_codigo}")
+        print(f"{var_result}\n{var_error}")
         if var_codigo != 0:
             var_sumaerrores = var_sumaerrores + 1
 
