@@ -7,6 +7,7 @@
 # ----------------------------------------------------------------------------------------
 
 from   cfg.CNBV_librerias import *
+from   cfg.CNBV_ayuda     import sTv_ayuda
 from   cnbv.CNBV_paso0 import sTv_paso0
 from   cnbv.CNBV_paso1 import sTv_paso1
 from   cnbv.CNBV_paso2 import sTv_paso2
@@ -198,7 +199,7 @@ while True:
             sTv_paso5(var_NombreSalida, var_EJERCICIO, var_TRIMESTRE, var_TIPODESCARGA, var_TipoDes)
             var_tmp9 = '*'
         case "?":
-            print("Ayuda.........")
+            sTv_ayuda()
 
         case _:
             print(Fore.RED + f"    ¡Saliendo del programa!\n")
