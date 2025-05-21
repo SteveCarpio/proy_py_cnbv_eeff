@@ -26,15 +26,12 @@ def sTv_paso1(var_NombreSalida, var_EJERCICIO, var_TRIMESTRE, var_TIPODESCARGA):
     time.sleep(5)
 
     # Cargo la pestaña de tipo de descarga: Trimestral, Mensual o Anual
-    # var_pestaniaWeb=f'//*[@id="contenedorFormatos"]/header/ul/li[{var_TIPODESCARGA}]/a'  ver2
     var_pestaniaWeb=f'//*[@id="contenedorFormatos"]/div[2]/div[1]/div[1]/select'
     web_tipoDescarga=driver.find_element(By.XPATH,var_pestaniaWeb)
     web_tipoDescarga.send_keys("Trimestral")
-    # web_tipoDescarga.click()  ver2
     time.sleep(5)
 
     # Cargo los valores de las Celdas de entrada: Ejercicio
-    #web_celdaTxt1=driver.find_element(By.XPATH,'//*[@id="contenedorFormatos"]/div[2]/div/div/div[3]/select')  ver2
     web_celdaTxt1=driver.find_element(By.XPATH,'//*[@id="contenedorFormatos"]/div[2]/div[2]/div/div[3]/select') 
     web_celdaTxt1.send_keys(var_EJERCICIO)  # sTv: automatizar esto
     time.sleep(5)
@@ -42,9 +39,7 @@ def sTv_paso1(var_NombreSalida, var_EJERCICIO, var_TRIMESTRE, var_TIPODESCARGA):
 
     # Cargo los valores de las Celdas de entrada: Trimestre
     if var_TIPODESCARGA == 1:
-        #web_celdaTxt2=driver.find_element(By.XPATH,'//*[@id="contenedorFormatos"]/div[2]/div/div/div[4]/select')  ver2
-        web_celdaTxt2=driver.find_element(By.XPATH,'//*[@id="contenedorFormatos"]/div[2]/div[2]/div/div[4]/div[1]/select')
-                                                                      
+        web_celdaTxt2=driver.find_element(By.XPATH,'//*[@id="contenedorFormatos"]/div[2]/div[2]/div/div[4]/div[1]/select')                                         
         web_celdaTxt2.send_keys(var_TRIMESTRE)
         time.sleep(2)
 

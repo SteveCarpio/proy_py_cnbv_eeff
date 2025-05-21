@@ -1,9 +1,9 @@
 # ----------------------------------------------------------------------------------------
-#                                  WebScraping CNBV "BARRIDO"
+#                        WebScraping CNBV EEFF (Estados Financieros)
 #
-# Programa que extraerá información contable de la Web de CNBV 
+# Programa que extraerá información contable de los estados financieros la Web de CNBV 
 # Autor: SteveCarpio
-# Versión: V2 2025
+# Versión: V3 2025
 # ----------------------------------------------------------------------------------------
 
 from   cfg.CNBV_librerias_v2 import *
@@ -15,7 +15,7 @@ from   cnbv.CNBV_paso4_v2 import sTv_paso4
 from   cnbv.CNBV_paso5_v2 import sTv_paso5
 
 os.system('cls')
-print(f"WebScraping: CNBV v2.0 \n")
+print(f"WebScraping: CNBV v3.0 \n")
 
 # Indique el tipo de descarga: Ej. 1 (Trimestral) , 2 (Mensual), 3 (Anual)
 var_opcion = input(f" ¡Indique el Tipo de Descarga! 1 (Trimestral), 2 (Mensual), 3 (Anual) : ")
@@ -97,9 +97,8 @@ if continuar not in ("s","S"):
 
 
 # Nombres de Salida
-var_NombreSalida= f'CNBV_Barrido_{var_TipoDes}_{var_TRIMESTRE}_{var_EJERCICIO}_{var_TIPOFILE}'
+var_NombreSalida= f'CNBV_EEFF_{var_TipoDes}_{var_TRIMESTRE}_{var_EJERCICIO}_{var_TIPOFILE}'
 
-sTv_paso2(f'CNBV_Barrido_Trime_1_2025_1', "2025", "1", "Trime", "1", ".xlsx")
 
 # ----------------------------------------------------------------------------------------
 #                                  EJECUCION PASOS
@@ -121,7 +120,7 @@ var_tmp9 = " "
 
 while True:
     os.system('cls')
-    print(f'Ingresa el paso a Ejecutar: [ CNBV_Barrido_{var_TipoDes}_{var_TRIMESTRE}_{var_EJERCICIO}_{var_TIPOFILE}_......xlsx ] \n')
+    print(f'Ingresa el paso a Ejecutar: [ CNBV_EEFF_{var_TipoDes}_{var_TRIMESTRE}_{var_EJERCICIO}_{var_TIPOFILE}_......xlsx ] \n')
     print(f'{var_tmp0}   0 = {var_tit0}')
     print(f'{var_tmp1}   1 = {var_tit1}')
     print(f'{var_tmp2}   2 = {var_tit2}')

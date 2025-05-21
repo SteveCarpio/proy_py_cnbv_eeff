@@ -6,59 +6,51 @@
 import cfg.CNBV_variables_v2 as sTv
 from   cfg.CNBV_librerias_v2 import *
 
-#import CNBV_variables_vx as sTv
-#from   CNBV_librerias_vx import *
-
 # ----------------------------------------------------------------------------------------
 #                               INICIO PROGRAMA
 # ----------------------------------------------------------------------------------------
 
 def sTv_paso2(var_NombreSalida, var_EJERCICIO, var_TRIMESTRE, var_TipoDes, var_TIPOFILE, var_extencion):
 
-    print("VERSION 3")
-
-    # Realizar la búsqueda de todos los ficheros HTML según el patrón seleccionado
+    # Realizar la búsqueda de todos los ficheros HTML
     var_Patron=f'{var_NombreSalida}*.html'
     var_ArchivosHtml = glob.glob(f'{sTv.var_RutaWebFiles}{var_Patron}')
     var_ArchivosSort = sorted(var_ArchivosHtml, key=os.path.getctime)
     var_ArchivosTota = len(var_ArchivosHtml)
     var_listaFinal = []
 
-    print(f'\nLista de ejecución. \nTipoDescarga: {var_TipoDes} \nAño: {var_EJERCICIO} \nTrimestre: {var_TRIMESTRE} \nTotalFiles: {var_ArchivosTota}\n')
+    print(f'TipoDescarga: {var_TipoDes} \nAño: {var_EJERCICIO} \nTrimestre: {var_TRIMESTRE} \nTotalFiles: {var_ArchivosTota}\n')
 
     for i in range(0,var_ArchivosTota):
         # Leer el contenido del HTML
         with open(var_ArchivosSort[i], "r", encoding="utf-8") as file:
             html_content = file.read()
-        # Crear un objeto BeautifulSoup para analizar el HTML
+        # Parsear un objeto para analizar el HTML
         soup = BeautifulSoup(html_content, "html.parser")
-        # Buscar el bloque de código HTML que contiene la cadena "<tr role="row"
-        # target_block = soup.find_all("tr", {"role": "row"})
+        # Buscamos en el HTML las clases=even/odd y creamos una lista bs4
         target_block1 = soup.find_all(class_="even")
         target_block2 = soup.find_all(class_="odd")
         target_block = target_block1 + target_block2
 
         # Recorro cada lista, en un objeto bs4 creado por 'soup'
         for j in range(0, len(target_block)):
-            # Convierto target_block que en un objeto bs4 a string para hacer el 'replace'
+            # Convierto target_block bs4 a un String para hacer el 'replace'
             var_cadena1 = str(target_block[j])
-            if "javascript" in var_cadena1:
-                # Quito la parte de texto que no me sirve
+            # De las lineas filtradas (class=even/odd) además solo leo las lineas que tengan esa cadena "javascript"
+            if "javascript" in var_cadena1: 
+                # Quitamos la parte de texto que no sirve, en algunos casos reemplazamos por "" y otro por ### 
                 var_cadena2 = var_cadena1.replace('<tr class="odd" role="row"><td class="sorting_1"><a href="javascript: abaxXBRL.controller.AbaxXBRLInfFinancieraController' \
                                                   '.mostrarDocumentoInstanciaDataTable(',"")
                 var_cadena3 = var_cadena2.replace('<tr class="even" role="row"><td class="sorting_1"><a href="javascript: abaxXBRL.controller.AbaxXBRLInfFinancieraController' \
                                                   '.mostrarDocumentoInstanciaDataTable(',"")
-                
-                var_cadena4 = var_cadena3.replace(');"><i class="fa fa-search-plus text-muted" style="color:#18AFA4"></i></a></td><td>',"###XxX1")  # </td><td>
+                # He puesto el valor "XxX1" porque para que este separado el resultado de esta cadena con la siguiente y quede como resultado
+                # valor -->  ###XxX1### en unos registros, en otros registros saldrá   ###<i>etiquetas html no filtradasXXXX ###
+                # Luego el valor de este "campo" delimitado por ### se eliminara mas abajo. será el campo DF "xx"
+                var_cadena4 = var_cadena3.replace(');"><i class="fa fa-search-plus text-muted" style="color:#18AFA4"></i></a></td><td>',"###XxX1") 
                 var_cadena5 = var_cadena4.replace('</td><td>',"###")
-
-
-
-                var_cadena6 = var_cadena5.replace('</td></tr>',f'###{var_EJERCICIO}_{var_TipoDes}{var_TRIMESTRE}### .....')               
+                var_cadena6 = var_cadena5.replace('</td></tr>',f'###{var_EJERCICIO}_{var_TipoDes}{var_TRIMESTRE}### .....')
                 # Añadimos todos los valores a la lista-string final con todos resultados
                 var_listaFinal.append(var_cadena6)
-
-                
 
         # Limpiamos las variables, no es necesario en python pero queda bien
         del target_block1,target_block2,target_block,soup,html_content
@@ -91,9 +83,9 @@ def sTv_paso2(var_NombreSalida, var_EJERCICIO, var_TRIMESTRE, var_TipoDes, var_T
 
     # Reiniciar el índice comenzando desde 1
     df.reset_index(drop=True, inplace=True)  # Primero eliminamos el índice anterior
-    df.index = range(1, len(df) + 1)  # Creamos un índice que comienza en 1
+    df.index = range(1, len(df) + 1)         # Creamos un índice que comienza en 1
 
-    # Crear el campo CURL
+    # Recorremos el DF creado para crear el campo CURL
     cont = 0
     for i, row in df.iterrows():
         cont = cont + 1
@@ -116,5 +108,4 @@ def sTv_paso2(var_NombreSalida, var_EJERCICIO, var_TRIMESTRE, var_TipoDes, var_T
 
     # Creo un excel con el resultado del DataFrame
     df.to_excel(f'{sTv.var_RutaInforme}{var_NombreSalida}_Datos.xlsx',sheet_name='DATA', index=False)
-
-#sTv_paso2(f'CNBV_Barrido_Trime_1_2025_1', "2025", "1", "Trime", "1", ".xlsx")
+    
