@@ -61,7 +61,7 @@ def funcion_resumen_tipo1(par_archivo_destino, var_EJERCICIO, var_TRIMESTRE, var
     hoja = libro['RESUMEN']
  
     # Escribir en el libro resumen1
-    hoja['A1']  = "WEBSCARPING: CNBV_BARRIDO"
+    hoja['A1']  = "WEBSCARPING: CNBV_EEFF"
     hoja['B3']  = "RESUMEN"
     hoja['C5']  = "Fecha de Proceso:"
     hoja['D5']  = var_fecha
@@ -144,7 +144,7 @@ def funcion_crea_excelTotales2(par_archivo_origen1, par_archivo_origen2, par_arc
 def funcion_formatea_excelFinal2(par_archivo_destino):
     print(f'   Formateando excel FINAL ')
 
-    par_archivo_destino = 'C:\\MisCompilados\\PROY_CNBV_Barrido\\INFORMES\\CNBV_Barrido_Trime_3_2024_1_Final.xlsx'
+    par_archivo_destino = 'C:\\MisCompilados\\PROY_CNBV_EEFF\\INFORMES\\CNBV_EEFF_Trime_3_2024_1_Final.xlsx'
 
     # Cargar el excel FINAL    
     wb = openpyxl.load_workbook(par_archivo_destino)
