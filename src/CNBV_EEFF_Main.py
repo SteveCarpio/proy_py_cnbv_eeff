@@ -14,6 +14,7 @@ from   cnbv.CNBV_paso2 import sTv_paso2
 from   cnbv.CNBV_paso3 import sTv_paso3
 from   cnbv.CNBV_paso4 import sTv_paso4
 from   cnbv.CNBV_paso5 import sTv_paso5
+from   cnbv.CNBV_paso6 import sTv_paso6
 
 # Inicializar colorama
 init(autoreset=True)
@@ -100,6 +101,8 @@ if var_TIPODESCARGA != 1:
 # Nombres de Salida
 var_NombreSalida= f'CNBV_EEFF_{var_TipoDes}_{var_TRIMESTRE}_{var_EJERCICIO}_{var_TIPOFILE}'
 
+var_Fecha = dt.now()
+var_Fechas1 = var_Fecha.strftime('%Y-%m-%d')  # Formato "2025-03-04"
 
 # ----------------------------------------------------------------------------------------
 #                                  EJECUCION PASOS
@@ -110,6 +113,7 @@ var_tit2 = f'CREAR INFORME "DATOS" CON LA LINEA "CURL"'
 var_tit3 = f'DESCARGA FICHEROS "...{var_extencion}" A PARTIR DEL EXCEL "DATOS"'
 var_tit4 = f'CREAR INFORME "TOTALES" A PARTIR DE LOS EXCEL DESCARGADOS'
 var_tit5 = f'CREAR INFORME "FINAL" A PARTIR DE LOS EXCEL "DATOS" y "TOTALES"'
+var_tit6 = f'MANDAR POR EMAIL EL INFORME "FINAL" '
 var_tit9 = f'EJECUTAR TODOS LOS PASOS'
 var_tmp0 = " "
 var_tmp1 = " "
@@ -117,6 +121,7 @@ var_tmp2 = " "
 var_tmp3 = " "
 var_tmp4 = " "
 var_tmp5 = " "
+var_tmp6 = " "
 var_tmp9 = " "
 
 while True:
@@ -135,6 +140,7 @@ while True:
     print(Fore.YELLOW + f'{var_tmp3}   3 = {var_tit3}')
     print(Fore.BLUE + f'{var_tmp4}   4 = {var_tit4}')
     print(Fore.BLUE + f'{var_tmp5}   5 = {var_tit5}')
+    print(Fore.YELLOW + f'{var_tmp6}   6 = {var_tit6}')
     print(Fore.LIGHTWHITE_EX + f'{var_tmp9}   9 = {var_tit9}') 
     print(Fore.MAGENTA + f'    ? = AYUDA')
     print(Fore.MAGENTA + f'\n                      ¡ Para SALIR escriba otro valor !')
@@ -183,6 +189,12 @@ while True:
             print(Fore.BLUE + f' \n--------------------------------- [ {var_tit5} ]\n ')
             sTv_paso5(var_NombreSalida, var_EJERCICIO, var_TRIMESTRE, var_TIPODESCARGA, var_TipoDes)
             var_tmp5 = '*'
+
+        case "6":
+            # Ejecución del paso 6 
+            print(Fore.BLUE + f' \n--------------------------------- [ {var_tit6} ]\n ')
+            sTv_paso6(var_NombreSalida, var_EJERCICIO, var_TRIMESTRE, var_TIPODESCARGA, var_TipoDes2, var_Fechas1)
+            var_tmp6 = '*'
 
         case "9":
             print(Fore.LIGHTWHITE_EX + f' \n--------------------------------- [ {var_tit0} ]\n ')
