@@ -209,7 +209,10 @@ while True:
             sTv_paso4(var_NombreSalida, var_EJERCICIO, var_TRIMESTRE, var_TIPODESCARGA, var_TipoDes)
             print(Fore.BLUE + f' \n--------------------------------- [ {var_tit5} ]\n ')
             sTv_paso5(var_NombreSalida, var_EJERCICIO, var_TRIMESTRE, var_TIPODESCARGA, var_TipoDes)
+            print(Fore.BLUE + f' \n--------------------------------- [ {var_tit6} ]\n ')
+            sTv_paso6(var_NombreSalida, var_EJERCICIO, var_TRIMESTRE, var_TIPODESCARGA, var_TipoDes2, var_Fechas1)
             var_tmp9 = '*'
+
         case "?":
             sTv_ayuda()
 
