@@ -157,17 +157,18 @@ def enviar_email_con_adjunto(destinatarios_to, destinatarios_cc, asunto, cuerpo,
     #mensaje.attach(MIMEText(cuerpo, 'plain'))
 
     # Combinar la ruta con el nombre del archivo
-    # archivo_completo = os.path.join(ruta, nombre_archivo)
+    archivo_completo = os.path.join(ruta, nombre_archivo)
+    print(f'- Se adjunta al email el file: {archivo_completo}')
 
     # Adjuntar el archivo Excel  --- HEMOS DECIDIDO NO MANDAR EL EXCEL
-    #try:
-    #    with open(archivo_completo, 'rb') as archivo:
-    #        # Crear el objeto MIME para el archivo adjunto
-    #        adjunto = MIMEApplication(archivo.read(), _subtype='xlsx')
-    #        adjunto.add_header('Content-Disposition', 'attachment', filename=nombre_archivo)
-    #        mensaje.attach(adjunto)
-    #except Exception as e:
-    #    print(f"Error al adjuntar el archivo: {e}")
+    try:
+        with open(archivo_completo, 'rb') as archivo:
+            # Crear el objeto MIME para el archivo adjunto
+            adjunto = MIMEApplication(archivo.read(), _subtype='xlsx')
+            adjunto.add_header('Content-Disposition', 'attachment', filename=nombre_archivo)
+            mensaje.attach(adjunto)
+    except Exception as e:
+        print(f"Error al adjuntar el archivo: {e}")
 
     # Enviar el correo
     try:
@@ -211,6 +212,7 @@ def sTv_paso6_formatea_DF(df_TOTALES1, df_TOTALES2):
     # Elimino campos
     df_2.drop(columns=["Iden"], inplace=True)
     df_2.drop(columns=["Periodo"], inplace=True)
+    df_2.drop(columns=["Taxonomia"], inplace=True)
     # Convierto a fecha y luego solo muestro AAAA-MM-DD
     df_2["FEnvio"] = pd.to_datetime(df_2["FEnvio"], errors='coerce')
     df_2["FEnvio"] = df_2["FEnvio"].dt.strftime("%Y-%m-%d")
@@ -264,12 +266,13 @@ def sTv_paso6(var_NombreSalida, var_EJERCICIO, var_TRIMESTRE, var_TIPODESCARGA, 
     df1, df2 = sTv_paso6_formatea_DF(df_TOTALES1, df_TOTALES2)
 
     destinatarios_cc = ['carpios@tda-sgft.com']
-    #destinatarios_to = ['talavanf@tda-sgft.com']
-    destinatarios_to = ['carpios@tda-sgft.com']
+    destinatarios_to = ['repcomun@tda-sgft.com']
+    #destinatarios_to = ['carpios@tda-sgft.com']
+    #destinatarios_to = ['stv.madrid@gmail.com']
 
     asunto = f'Informe Trimestral de los Estados Financieros de CNBV  {var_EJERCICIO}.{var_TRIMESTRE}.{var_TipoDes2} | Tda Update '
 
     cuerpo=f'Fecha Informe: <b>{var_Fechas1}</b> <br>Ejercicio: <b>{var_EJERCICIO}</b> <br>Trimestre: <b>{var_TRIMESTRE}</b> <br>Tipo de Descarga: <b>{var_TipoDes2}</b>'
 
-    enviar_email_con_adjunto(destinatarios_to, destinatarios_cc, asunto, cuerpo,  {sTv.var_RutaInforme}, f"{var_NombreSalida}_Final.xlsx", df1, df2)
+    enviar_email_con_adjunto(destinatarios_to, destinatarios_cc, asunto, cuerpo,  sTv.var_RutaInforme, f"{var_NombreSalida}_Final.xlsx", df1, df2)
   
