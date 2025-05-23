@@ -3,6 +3,7 @@ env/
 
 # Ignorar archivos de Python compilados
 __pycache__/
+src/cfg/__pycache__/*
 *.pyc
 *.pyo
 build/
@@ -17,3 +18,4 @@ Pipfile.lock
 *.laccdb
 *.laccdb
 *.spec
+*.pyc
