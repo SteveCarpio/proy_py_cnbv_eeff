@@ -266,8 +266,8 @@ def sTv_paso6(var_NombreSalida, var_EJERCICIO, var_TRIMESTRE, var_TIPODESCARGA, 
     df1, df2 = sTv_paso6_formatea_DF(df_TOTALES1, df_TOTALES2)
 
     destinatarios_cc = ['carpios@tda-sgft.com']
-    destinatarios_to = ['repcomun@tda-sgft.com']
-    #destinatarios_to = ['carpios@tda-sgft.com']
+    #destinatarios_to = ['repcomun@tda-sgft.com']
+    destinatarios_to = ['carpios@tda-sgft.com']
     #destinatarios_to = ['stv.madrid@gmail.com']
 
     asunto = f'Informe Trimestral de los Estados Financieros de CNBV  {var_EJERCICIO}.{var_TRIMESTRE}.{var_TipoDes2} | Tda Update '
