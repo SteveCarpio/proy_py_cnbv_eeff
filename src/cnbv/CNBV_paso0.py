@@ -44,7 +44,8 @@ def sTv_paso0(var_NombreSalida, var_EJERCICIO, var_TRIMESTRE, var_TipoDes):
 
     # Borra files descargados de CNBV
     borrar_archivos(sTv.var_RutaWebFiles, f'*.html')      #  f'{var_NombreSalida}_*.html'
-    borrar_archivos(sTv.var_RutaXls, f'*.xlsx')           #  f'{var_TipoDes}_{var_EJERCICIO}_{var_TRIMESTRE}__*.xlsx'
+    print(f'{sTv.var_RutaXls} {var_TipoDes}_{var_EJERCICIO}_{var_TRIMESTRE}__*.xlsx')
+    borrar_archivos(sTv.var_RutaXls, f'{var_TipoDes}_{var_EJERCICIO}_{var_TRIMESTRE}__*.xlsx')       
     borrar_archivos(sTv.var_RutaInforme, f'{var_NombreSalida}_Datos.xlsx')
     borrar_archivos(sTv.var_RutaInforme, f'{var_NombreSalida}_Final.xlsx')
     borrar_archivos(sTv.var_RutaInforme, f'{var_NombreSalida}_Totales.xlsx')
