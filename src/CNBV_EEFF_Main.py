@@ -24,9 +24,9 @@ if var_Parametro == "?":
     sTv_ayuda()
     sys.exit(0)
 
-var_Entorno="DEV"
-if var_Parametro == "PRO":
-    var_Entorno = "PRO"
+var_Entorno="PRO"
+if var_Parametro == "DEV":
+    var_Entorno = "DEV"
 
 # Inicializar colorama
 init(autoreset=True)
