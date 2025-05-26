@@ -12,6 +12,8 @@ import pandas as pd                                               # -- -- -- p2 
 import subprocess                                                 # -- -- -- -- p3          #
 import openpyxl                                                   # -- -- -- -- -- -- p5    #
 import smtplib                                                    # -- -- -- -- -- -- -- p6 #
+import re                                                         # -- -- -- -- -- -- -- p6 #
+
 from colorama import init, Fore, Back, Style                      # Ma                      #
 from selenium import webdriver                                    # -- -- p1                #
 from selenium.webdriver.chrome.service import Service             # -- -- p1                #

@@ -16,9 +16,17 @@ from   cnbv.CNBV_paso4 import sTv_paso4
 from   cnbv.CNBV_paso5 import sTv_paso5
 from   cnbv.CNBV_paso6 import sTv_paso6
 
-if sys.argv[1] == str("?"):
+var_Parametro = ""
+if len(sys.argv) > 1:
+    var_Parametro = str(sys.argv[1])
+
+if var_Parametro == "?":
     sTv_ayuda()
     sys.exit(0)
+
+var_Entorno="DEV"
+if var_Parametro == "PRO":
+    var_Entorno = "PRO"
 
 # Inicializar colorama
 init(autoreset=True)
@@ -28,10 +36,11 @@ init(autoreset=True)
 # ----------------------------------------------------------------------------------------
 os.system('cls')
 print(Fore.MAGENTA + "=" * 94)
-print(Fore.MAGENTA + "  Proceso WebScraping CNBV EEFF                            |  Tipo de Descarga  : ? ")
-print(Fore.MAGENTA + "                                                           |  Periodo Trim Anual: ? ")
-print(Fore.MAGENTA + "    Ingrese los parámetros de entrada                      |  Año de Ejercicio  : ? ")
-print(Fore.MAGENTA + "    Escriba otro valor para salir del programa             |  Tipo de Fichero   : ? ")
+print(Fore.MAGENTA + f"  Proceso WebScraping CNBV EEFF                             |  Modo              : {var_Entorno}")
+print(Fore.MAGENTA + "                                                            |  Tipo de Descarga  : ? ")
+print(Fore.MAGENTA + "    Ingrese los parámetros de entrada                       |  Periodo Trim Anual: ? ")
+print(Fore.MAGENTA + "    Escriba otro valor para salir del programa              |  Año de Ejercicio  : ? ")
+print(Fore.MAGENTA + "                                                            |  Tipo de Fichero   : ? ")
 print(Fore.MAGENTA + "=" * 94 + "\n")
 
 # Indique el tipo de descarga: Ej. 1 (Trimestral) , 2 (Mensual), 3 (Anual)
@@ -132,10 +141,11 @@ while True:
     os.system('cls')
     
     print(Fore.MAGENTA + "=" * 94)
-    print(Fore.MAGENTA + "  Proceso WebScraping CNBV EEFF                            |  Tipo de Descarga  : " + var_TipoDes2)
-    print(Fore.MAGENTA + "                                                           |  Periodo Trim Anual: " + var_TRIMESTRE)
-    print(Fore.MAGENTA + "    Ejecutar los pasos del proyecto                        |  Año de Ejercicio  : " + str(var_EJERCICIO))
-    print(Fore.MAGENTA + "    Escriba otro valor para salir del programa             |  Tipo de Fichero   : " + var_extencion2)
+    print(Fore.MAGENTA + "  Proceso WebScraping CNBV EEFF                             |  Modo              : " + var_Entorno)
+    print(Fore.MAGENTA + "                                                            |  Tipo de Descarga  : " + var_TipoDes2)
+    print(Fore.MAGENTA + "    Ejecutar los pasos del proyecto                         |  Periodo Trim Anual: " + var_TRIMESTRE)
+    print(Fore.MAGENTA + "    Escriba otro valor para salir del programa              |  Año de Ejercicio  : " + str(var_EJERCICIO))
+    print(Fore.MAGENTA + "                                                            |  Tipo de Fichero   : " + var_extencion2)
     print(Fore.MAGENTA + "=" * 94 + "\n")
 
     print(Fore.LIGHTWHITE_EX + f'{var_tmp0}   0 = {var_tit0}')
@@ -179,7 +189,7 @@ while True:
         case "3":
             # Ejecución del paso 3 
             print(Fore.YELLOW + f' \n--------------------------------- [ {var_tit3} ]\n ')
-            sTv_paso3(var_NombreSalida)
+            sTv_paso3(var_NombreSalida, var_Entorno)
             var_tmp3 = '*'
 
         case "4":
@@ -197,7 +207,7 @@ while True:
         case "6":
             # Ejecución del paso 6 
             print(Fore.BLUE + f' \n--------------------------------- [ {var_tit6} ]\n ')
-            sTv_paso6(var_NombreSalida, var_EJERCICIO, var_TRIMESTRE, var_TIPODESCARGA, var_TipoDes2, var_Fechas1)
+            sTv_paso6(var_NombreSalida, var_EJERCICIO, var_TRIMESTRE, var_TIPODESCARGA, var_TipoDes2, var_Fechas1, var_Entorno)
             var_tmp6 = '*'
 
         case "9":
@@ -208,13 +218,13 @@ while True:
             print(Fore.GREEN + f' \n--------------------------------- [ {var_tit2} ]\n ')
             sTv_paso2(var_NombreSalida, var_EJERCICIO, var_TRIMESTRE, var_TipoDes, var_TIPOFILE, var_extencion)
             print(Fore.YELLOW + f' \n--------------------------------- [ {var_tit3}]\n ')
-            sTv_paso3(var_NombreSalida)
+            sTv_paso3(var_NombreSalida, var_Entorno)
             print(Fore.BLUE + f' \n--------------------------------- [ {var_tit4} ]\n ')
             sTv_paso4(var_NombreSalida, var_EJERCICIO, var_TRIMESTRE, var_TIPODESCARGA, var_TipoDes)
             print(Fore.BLUE + f' \n--------------------------------- [ {var_tit5} ]\n ')
             sTv_paso5(var_NombreSalida, var_EJERCICIO, var_TRIMESTRE, var_TIPODESCARGA, var_TipoDes)
             print(Fore.BLUE + f' \n--------------------------------- [ {var_tit6} ]\n ')
-            sTv_paso6(var_NombreSalida, var_EJERCICIO, var_TRIMESTRE, var_TIPODESCARGA, var_TipoDes2, var_Fechas1)
+            sTv_paso6(var_NombreSalida, var_EJERCICIO, var_TRIMESTRE, var_TIPODESCARGA, var_TipoDes2, var_Fechas1, var_Entorno)
             var_tmp9 = '*'
 
         case "?":

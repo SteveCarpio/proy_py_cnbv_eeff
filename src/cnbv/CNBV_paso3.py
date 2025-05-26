@@ -20,7 +20,7 @@ def descargo_ficheros_curl(v_curl):
 #                               INICIO PROGRAMA
 # ----------------------------------------------------------------------------------------
 
-def sTv_paso3(var_NombreSalida):
+def sTv_paso3(var_NombreSalida, var_Entorno):
 
     try:
         if not os.path.exists(f'{sTv.var_RutaInforme}{var_NombreSalida}_Datos.xlsx'):
@@ -40,14 +40,21 @@ def sTv_paso3(var_NombreSalida):
 
     # Recorro el DataFrame y invoco la descarga por CMD
     for i, row in df.iterrows():
-        var_result, var_error, var_codigo = descargo_ficheros_curl(row['CURL'])
-        print(Fore.YELLOW + f"\n--- Descargando ({i+1}/{numRegDf}): {row['FileXbrl']} ---")
-        #print(f" Resultado de curl:{var_result}")
-        #print(f" Resultado de warn\n{var_error}")
-        #print(f" Código de retorno: {var_codigo}")
-        print(f"{var_result}\n{var_error}")
-        if var_codigo != 0:
-            var_sumaerrores = var_sumaerrores + 1
+
+        # En modo DEV descargamos solo 10 excel, en PRO se hará una descarga completa.
+        if var_Entorno == "DEV":
+            if i < 10:
+                var_result, var_error, var_codigo = descargo_ficheros_curl(row['CURL'])
+                print(Fore.YELLOW + f"\n--- Descargando ({i+1}/{numRegDf}): {row['FileXbrl']} ---")
+                print(f"{var_result}\n{var_error}")
+                if var_codigo != 0:
+                    var_sumaerrores = var_sumaerrores + 1
+        else:
+            var_result, var_error, var_codigo = descargo_ficheros_curl(row['CURL'])
+            print(Fore.YELLOW + f"\n--- Descargando ({i+1}/{numRegDf}): {row['FileXbrl']} ---")
+            print(f"{var_result}\n{var_error}")
+            if var_codigo != 0:
+                var_sumaerrores = var_sumaerrores + 1
 
     if var_sumaerrores != 0:
         print(Fore.RED + "¡¡¡ ATENCIÓN !!!")

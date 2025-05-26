@@ -10,6 +10,18 @@ from   cfg.CNBV_librerias import *
 #                              FUNCIONES
 # ----------------------------------------------------------------------------------------
 
+# Función que carga los destinatarios del email
+def cargar_destinatarios_csv(tipo):
+    with open(f"{sTv.var_RutaConfig}destinatarios.csv", newline='', encoding='utf-8') as archivo_csv:
+        for linea in archivo_csv:
+            if linea.startswith(tipo):
+                # Extraer todo lo que está después de "TIPO"
+                datos = linea.split(":", 1)[1]
+                # Usamos una expresión regular para encontrar todas las direcciones de email
+                destinatarios = re.findall(r'[\w\.-]+@[\w\.-]+', datos)
+                return destinatarios
+    return []
+
 # Función para cambiar los colores en las etiquetas TR HTML
 def aplicar_colores_alternos(tabla_html):
     soup = BeautifulSoup(tabla_html, "html.parser")
@@ -244,7 +256,7 @@ def sTv_paso6_formatea_DF(df_TOTALES1, df_TOTALES2):
 #                             INICIO DE PROGRAMA
 # ----------------------------------------------------------------------------------------
 
-def sTv_paso6(var_NombreSalida, var_EJERCICIO, var_TRIMESTRE, var_TIPODESCARGA, var_TipoDes2, var_Fechas1):
+def sTv_paso6(var_NombreSalida, var_EJERCICIO, var_TRIMESTRE, var_TIPODESCARGA, var_TipoDes2, var_Fechas1, var_Entorno):
 
     # Ruta del archivo origen, destino y final
     archivo_destino = f"{sTv.var_RutaInforme}{var_NombreSalida}_Final.xlsx"
@@ -265,14 +277,18 @@ def sTv_paso6(var_NombreSalida, var_EJERCICIO, var_TRIMESTRE, var_TIPODESCARGA, 
     df_TOTALES2 = pd.read_excel(archivo_destino,sheet_name="TOTALES2")
     df1, df2 = sTv_paso6_formatea_DF(df_TOTALES1, df_TOTALES2)
 
-    destinatarios_cc = ['carpios@tda-sgft.com']
-    destinatarios_to = ['repcomun@tda-sgft.com']
-    #destinatarios_to = ['carpios@tda-sgft.com']
-    #destinatarios_to = ['stv.madrid@gmail.com']
+    if var_Entorno == "PRO":
+        destinatarios_to = cargar_destinatarios_csv("TO_PRO")
+        destinatarios_cc = cargar_destinatarios_csv("CC_PRO")
+    else:
+        destinatarios_to = cargar_destinatarios_csv("TO_DEV")
+        destinatarios_cc = cargar_destinatarios_csv("CC_DEV")
 
     asunto = f'Informe Trimestral de los Estados Financieros de CNBV  {var_EJERCICIO}.{var_TRIMESTRE}.{var_TipoDes2} | Tda Update '
-
     cuerpo=f'Fecha Informe: <b>{var_Fechas1}</b> <br>Ejercicio: <b>{var_EJERCICIO}</b> <br>Trimestre: <b>{var_TRIMESTRE}</b> <br>Tipo de Descarga: <b>{var_TipoDes2}</b>'
+
+    print(f"Se manda coreo modo: {var_Entorno}\n{destinatarios_to}\n{destinatarios_cc}")
+    print(asunto)
 
     enviar_email_con_adjunto(destinatarios_to, destinatarios_cc, asunto, cuerpo,  sTv.var_RutaInforme, f"{var_NombreSalida}_Final.xlsx", df1, df2)
   

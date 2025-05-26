@@ -20,6 +20,7 @@ var_WEBSCRAPING="https://xbrl.cnbv.gob.mx/visorXbrl.html#/enviosInformacionFinan
 var_RutaRaiz='C:\\MisCompilados\\PROY_CNBV_EEFF\\'
 var_RutaWebFiles=f'{var_RutaRaiz}WEBFILES\\'
 var_RutaInforme=f'{var_RutaRaiz}INFORMES\\'
+var_RutaConfig=f'{var_RutaRaiz}CONFIG\\'
 var_RutaXls=f'{var_RutaRaiz}XLS\\'
 
 # ----------------------------------------------------------------------------------------
