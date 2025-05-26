@@ -16,6 +16,10 @@ from   cnbv.CNBV_paso4 import sTv_paso4
 from   cnbv.CNBV_paso5 import sTv_paso5
 from   cnbv.CNBV_paso6 import sTv_paso6
 
+if sys.argv[1] == str("?"):
+    sTv_ayuda()
+    sys.exit(0)
+
 # Inicializar colorama
 init(autoreset=True)
 
