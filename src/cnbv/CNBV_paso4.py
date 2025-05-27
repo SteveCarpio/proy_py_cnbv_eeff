@@ -27,7 +27,8 @@ def sTv_paso4(var_NombreSalida, var_EJERCICIO, var_TRIMESTRE, var_TIPODESCARGA, 
         sys.exit(0)
 
     # Iterar sobre todos los archivos en la carpeta
-    for archivo in os.listdir(sTv.var_RutaXls):
+    #for archivo in os.listdir(sTv.var_RutaXls): 
+    for archivo in os.listdir(f'{sTv.var_RutaXls}{var_TipoDes}_{var_EJERCICIO}_{var_TRIMESTRE}__*.xlsx'):   
         if archivo.endswith('.xlsx') and archivo.startswith(var_TipoDes):
             var_cont = var_cont + 1
             var_Iden= archivo.split("_")[5]  # Extraigo de la posición el IDEN

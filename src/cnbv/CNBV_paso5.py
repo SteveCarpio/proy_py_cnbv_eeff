@@ -73,7 +73,7 @@ def funcion_resumen_tipo1(par_archivo_destino, var_EJERCICIO, var_TRIMESTRE, var
     hoja['C9']  = "Ejercicio"
     hoja['D9']  = var_EJERCICIO 
     hoja['C10']  = "Número de Trimestre"
-    hoja['D10']  = int(var_TRIMESTRE)
+    hoja['D10']  = var_TRIMESTRE
     hoja['C12'] = "Ruta Informes"
     hoja['D12'] = sTv.var_RutaInforme
     hoja['C13'] = "Ruta de Excel"
