@@ -4,6 +4,7 @@
 # Programa que extraerá información contable de los estados financieros la Web de CNBV 
 # Autor: Steve Carpio
 # Versión: V3 2025
+# .\venv\Scripts\activate
 # ----------------------------------------------------------------------------------------
 
 from   cfg.CNBV_librerias import *
