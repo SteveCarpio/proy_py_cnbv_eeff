@@ -1,5 +1,6 @@
 # Ignorar el entorno virtual
 env/
+.vscode/
 
 # Ignorar archivos de Python compilados
 __pycache__/
