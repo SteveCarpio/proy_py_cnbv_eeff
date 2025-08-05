@@ -2,7 +2,7 @@
 #                        WebScraping CNBV EEFF (Estados Financieros)
 #
 # Programa que extraerá información contable de los estados financieros la Web de CNBV 
-# Autor: SteveCarpio
+# Autor: Steve Carpio
 # Versión: V3 2025
 # ----------------------------------------------------------------------------------------
 
@@ -118,7 +118,7 @@ var_Fecha = dt.now()
 var_Fechas1 = var_Fecha.strftime('%Y-%m-%d')  # Formato "2025-03-04"
 
 # ----------------------------------------------------------------------------------------
-#                                  EJECUCION PASOS
+#                                  EJECUCIÓN PASOS
 # ----------------------------------------------------------------------------------------
 var_tit0 = f'CREAR Y LIMPIAR LOS REPOSITORIOS'
 var_tit1 = f'NAVEGAR POR LA WEB CNBV Y DESCARGAR LOS CÓDIGOS "HTML"'
