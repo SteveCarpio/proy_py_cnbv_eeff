@@ -3,6 +3,8 @@ env/
 .vscode/
 venv/
 
+__init__.py
+
 # Ignorar archivos de Python compilados
 __pycache__/
 src/cfg/__pycache__/*
