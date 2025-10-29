@@ -8,55 +8,16 @@ from   cfg.CNBV_librerias import *
 import psutil
 import shutil
 
-def kill_chrome_processes():
-    """Terminar procesos de Chrome de manera más específica"""
-    for proc in psutil.process_iter(['pid', 'name']):
-        if proc.info['name'] and any(keyword in proc.info['name'].lower() for keyword in ['chrome', 'chromedriver']):
-            try:
-                proc.terminate()
-                proc.wait(timeout=5)
-            except:
-                try:
-                    proc.kill()
-                except:
-                    pass
-    time.sleep(2)
-
-
-
 # ----------------------------------------------------------------------------------------
 #                                    INICIO WEB SCRAPPING
 # ----------------------------------------------------------------------------------------
 
 def sTv_paso1(var_NombreSalida, var_EJERCICIO, var_TRIMESTRE, var_TIPODESCARGA):
 
-    # Limpiar antes de empezar
-    kill_chrome_processes()
-
-    tmp_dir = tempfile.mkdtemp(prefix='chrome_profile_')
-    print(f"Using temp dir: {tmp_dir}")
-
-    #options = webdriver.ChromeOptions()
-    #options.add_argument('--ignore-certificate-errors')
-    #options.add_argument(f'--user-data-dir={tmp_dir}')
-
-
-    options = webdriver.ChromeOptions()
-    options.add_argument('--ignore-certificate-errors')
-    options.add_argument(f'--user-data-dir={tmp_dir}')
-    options.add_argument('--no-first-run')
-    options.add_argument('--no-default-browser-check')
-    options.add_argument('--disable-background-timer-throttling')
-    options.add_argument('--disable-backgrounding-occluded-windows')
-    options.add_argument('--disable-renderer-backgrounding')
-    options.add_argument('--disable-dev-shm-usage')
-    options.add_argument('--no-sandbox')
-
-
-
-    driver = webdriver.Chrome(service=Service(sTv.var_CHROMEDRIVER), options=options)
-
-    driver.maximize_window()
+    driver = webdriver.Chrome(service=Service(sTv.var_CHROMEDRIVER), options=chrome_options)
+    # Si quieres ver el explorador web comentar: chrome_options.add_argument("--headless") que esta en liberías
+    #driver.maximize_window()
+    
     driver.get(sTv.var_WEBSCRAPING)
 
     # Hago un pause largo porque la web tarda mucho en cargar
