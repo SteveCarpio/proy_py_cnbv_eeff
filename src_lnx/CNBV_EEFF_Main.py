@@ -25,7 +25,7 @@ if var_Parametro == "?":
     sTv_ayuda()
     sys.exit(0)
 
-var_Entorno="DEV"
+var_Entorno="PRO"
 if var_Parametro == "DEV":
     var_Entorno = "DEV"
 
