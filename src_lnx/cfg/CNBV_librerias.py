@@ -13,6 +13,7 @@ import subprocess                                                 # -- -- -- -- 
 import openpyxl                                                   # -- -- -- -- -- -- p5    #
 import smtplib                                                    # -- -- -- -- -- -- -- p6 #
 import re                                                         # -- -- -- -- -- -- -- p6 #
+import tempfile
 
 from colorama import init, Fore, Back, Style                      # Ma                      #
 from selenium import webdriver                                    # -- -- p1                #
