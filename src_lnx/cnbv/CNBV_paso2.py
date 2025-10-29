@@ -100,7 +100,7 @@ def sTv_paso2(var_NombreSalida, var_EJERCICIO, var_TRIMESTRE, var_TipoDes, var_T
         v_nonfile2=v_nonfile2.replace("%20","_")
         v_nonfile2=v_nonfile2.replace("^&","_")
         v_nonfile2=v_nonfile2.replace(";","_")
-        v_curl1='cmd.exe /c curl --request POST --url https://xbrl.cnbv.gob.mx/DocumentoInstancia/BajarArchivoDocumentoInstancia --ssl-no-revoke --header\
+        v_curl1='curl -k --request POST --url https://xbrl.cnbv.gob.mx/DocumentoInstancia/BajarArchivoDocumentoInstancia --ssl-no-revoke --header\
         "content-type: application/x-www-form-urlencoded" --data idDocIns='
         v_curl2=" --data tipoArchivo="
         v_curl3=' --data "nombreArchivo='
