@@ -25,7 +25,7 @@ if var_Parametro == "?":
     sTv_ayuda()
     sys.exit(0)
 
-var_Entorno="PRO"
+var_Entorno="DEV"
 if var_Parametro == "DEV":
     var_Entorno = "DEV"
 
@@ -35,7 +35,7 @@ init(autoreset=True)
 # ----------------------------------------------------------------------------------------
 #                                  PARÁMETROS DE ENTRADA
 # ----------------------------------------------------------------------------------------
-os.system('cls')
+os.system('clear')
 print(Fore.MAGENTA + "=" * 94)
 print(Fore.MAGENTA + f"  Proceso WebScraping CNBV EEFF                             |  Modo              : {var_Entorno}")
 print(Fore.MAGENTA + "                                                            |  Tipo de Descarga  : ? ")
@@ -139,7 +139,7 @@ var_tmp6 = " "
 var_tmp9 = " "
 
 while True:
-    os.system('cls')
+    os.system('clear')
     
     print(Fore.MAGENTA + "=" * 94)
     print(Fore.MAGENTA + "  Proceso WebScraping CNBV EEFF                             |  Modo              : " + var_Entorno)

@@ -10,7 +10,7 @@ from   cfg.CNBV_librerias import *
 #                                  CUADRO DE AYUDA
 # ----------------------------------------------------------------------------------------
 def sTv_ayuda():
-    os.system("cls")
+    os.system("clear")
     print(Fore.MAGENTA + "=" * 96)
     print(Fore.MAGENTA + "                               Proceso WebScraping CNBV EEFF\n")
     print(Fore.MAGENTA + " Este programa ha sido desarrollado en Python y utiliza Google Chrome (a través de herramientas")
