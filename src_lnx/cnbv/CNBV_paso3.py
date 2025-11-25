@@ -60,19 +60,20 @@ def sTv_paso3(var_NombreSalida, var_Entorno):
         var_sumaerrores=0
 
         # Recorro el DataFrame y invoco la descarga por CMD
-        for i, row in df3.iterrows():
+        for i, row in df3.iterrows():   # for i, (_, row) in enumerate(df3.iterrows()):
+        
 
             # En modo DEV descargamos solo 10 excel, en PRO se hará una descarga completa.
             if var_Entorno == "DEV":
-                if i < 3:
+                if i < 3:   # type: ignore
                     var_result, var_error, var_codigo = descargo_ficheros_curl(row['CURL'])
-                    print(Fore.YELLOW + f"\n--- Descargando ({i+1}/{numRegDf}): {row['FileXbrl']} ---")
+                    print(Fore.YELLOW + f"\n--- Descargando ({i+1}/{numRegDf}): {row['FileXbrl']} ---") # type: ignore
                     print(f"{var_result}\n{var_error}")
                     if var_codigo != 0:
                         var_sumaerrores = var_sumaerrores + 1
             else:
                 var_result, var_error, var_codigo = descargo_ficheros_curl(row['CURL'])
-                print(Fore.YELLOW + f"\n--- Descargando ({i+1}/{numRegDf}): {row['FileXbrl']} ---")
+                print(Fore.YELLOW + f"\n--- Descargando ({i+1}/{numRegDf}): {row['FileXbrl']} ---")  # type: ignore
                 print(f"{var_result}\n{var_error}")
                 if var_codigo != 0:
                     var_sumaerrores = var_sumaerrores + 1

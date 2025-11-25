@@ -8,7 +8,7 @@
 # ----------------------------------------------------------------------------------------
 
 from   cfg.CNBV_librerias import *
-from   cfg.CNBV_ayuda     import sTv_ayuda
+from   cfg.CNBV_ayuda  import sTv_ayuda
 from   cnbv.CNBV_paso0 import sTv_paso0
 from   cnbv.CNBV_paso1 import sTv_paso1
 from   cnbv.CNBV_paso2 import sTv_paso2
