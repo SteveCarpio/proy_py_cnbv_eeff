@@ -89,24 +89,19 @@ def op4_tipo_fichero(var_opcion):
 # FUNCION: LANZADOR CON MENÚ
 # ==================================================================================================
 def lanzador_con_menu():
-    print("Inicio: Lanzador con Menú")
     var_Parametro = ""
+    var_Entorno="DEV"
 
     if len(sys.argv) > 1:
         var_Parametro = str(sys.argv[1])
-
     if var_Parametro == "?":
         sTv_ayuda()
         sys.exit(0)
-
-    var_Entorno="DEV"
     if var_Parametro == "PRO":
         var_Entorno = "PRO"
 
     # Inicializar colorama
     init(autoreset=True)
-    
-    print(f"Se ejecutará en modo: {var_Entorno} ")
 
     # -------------------------------
     #     PARÁMETROS DE ENTRADA
@@ -171,7 +166,6 @@ def lanzador_con_menu():
 
     while True:
         os.system('clear')
-        
         print(Fore.MAGENTA + "=" * 94)
         print(Fore.MAGENTA + "  Proceso WebScraping CNBV EEFF                             |  Modo              : " + var_Entorno)
         print(Fore.MAGENTA + "                                                            |  Tipo de Descarga  : " + var_TipoDes2)
@@ -179,7 +173,6 @@ def lanzador_con_menu():
         print(Fore.MAGENTA + "    Escriba otro valor para salir del programa              |  Año de Ejercicio  : " + str(var_EJERCICIO))
         print(Fore.MAGENTA + "                                                            |  Tipo de Fichero   : " + var_extencion2)
         print(Fore.MAGENTA + "=" * 94 + "\n")
-
         print(Fore.LIGHTWHITE_EX + f'{var_tmp0}   0 = {var_tit0}')
         print(Fore.YELLOW + f'{var_tmp1}   1 = {var_tit1}')
         print(Fore.GREEN + f'{var_tmp2}   2 = {var_tit2}')
@@ -198,50 +191,41 @@ def lanzador_con_menu():
                 print(Fore.LIGHTWHITE_EX + f' \n--------------------------------- [ {var_tit0} ]\n ')
                 sTv_paso0(var_NombreSalida, var_EJERCICIO, var_TRIMESTRE, var_TipoDes)
                 var_tmp0 = '*'
-
             case "1":
                 # Ejecución del paso 1
-
                 if var_tmp0 != '*':  # Si no ejecuto el paso 0 lo invoco
                     # Ejecución del paso 0
                     print(Fore.LIGHTWHITE_EX + f' \n--------------------------------- [ {var_tit0} ] Paso-0 \n ')
                     sTv_paso0(var_NombreSalida, var_EJERCICIO, var_TRIMESTRE, var_TipoDes)
                     var_tmp0 = '*'
-
                 print(Fore.YELLOW + f' \n--------------------------------- [ {var_tit1} ] Paso-1 \n ')
                 sTv_paso1(var_NombreSalida, var_EJERCICIO, var_TRIMESTRE, var_TIPODESCARGA)
                 var_tmp1 = '*'
-
             case "2":        
                 # Ejecución del paso 2
                 print(Fore.GREEN + f' \n--------------------------------- [ {var_tit2} ] Paso-2 \n ')
                 sTv_paso2(var_NombreSalida, var_EJERCICIO, var_TRIMESTRE, var_TipoDes, var_TIPOFILE, var_extencion)
                 var_tmp2 = '*'
-
             case "3":
                 # Ejecución del paso 3 
                 print(Fore.YELLOW + f' \n--------------------------------- [ {var_tit3} ] Paso-3 \n ')
                 sTv_paso3(var_NombreSalida, var_Entorno)
                 var_tmp3 = '*'
-
             case "4":
                 # Ejecución del paso 4 
                 print(Fore.BLUE + f' \n--------------------------------- [ {var_tit4} ] Paso-4 \n ')
                 sTv_paso4(var_NombreSalida, var_EJERCICIO, var_TRIMESTRE, var_TIPODESCARGA, var_TipoDes)
-                var_tmp4 = '*'
-                
+                var_tmp4 = '*' 
             case "5":
                 # Ejecución del paso 5 
                 print(Fore.BLUE + f' \n--------------------------------- [ {var_tit5} ] Paso-5 \n ')
                 sTv_paso5(var_NombreSalida, var_EJERCICIO, var_TRIMESTRE, var_TIPODESCARGA, var_TipoDes)
                 var_tmp5 = '*'
-
             case "6":
                 # Ejecución del paso 6 
                 print(Fore.BLUE + f' \n--------------------------------- [ {var_tit6} ] Paso-6 \n ')
                 sTv_paso6(var_NombreSalida, var_EJERCICIO, var_TRIMESTRE, var_TIPODESCARGA, var_TipoDes2, var_Fechas1, var_Entorno)
                 var_tmp6 = '*'
-
             case "9":
                 print(Fore.LIGHTWHITE_EX + f' \n--------------------------------- [ {var_tit0} ] Paso-0 \n ')
                 #sTv_paso0(var_NombreSalida, var_EJERCICIO, var_TRIMESTRE, var_TipoDes)
@@ -258,10 +242,8 @@ def lanzador_con_menu():
                 print(Fore.BLUE + f' \n--------------------------------- [ {var_tit6} ] Paso-6 \n ')
                 #sTv_paso6(var_NombreSalida, var_EJERCICIO, var_TRIMESTRE, var_TIPODESCARGA, var_TipoDes2, var_Fechas1, var_Entorno)
                 var_tmp9 = '*'
-
             case "?":
                 sTv_ayuda()
-
             case _:
                 print(Fore.RED + f"    ¡Saliendo del programa!\n")
                 sys.exit(0)
@@ -273,13 +255,55 @@ def lanzador_con_menu():
 # ==================================================================================================
 # FUNCION: LANZADOR SIN MENÚ
 # ==================================================================================================
-def lanzador_sin_menu():
-
+def lanzador_sin_menu(var_par1, var_par2, var_par3, var_par4, var_par5):
     print("Inicio: Lanzador sin Menú")
+    # Inicializar colorama
+    init(autoreset=True)
 
+    # -------------------------------------
+    #     DEFINIR PARÁMETROS DE ENTRADA
+    # -------------------------------------
+    # Valida Entorno, siempre será DEV siempre que no llegue PRO
+    var_Entorno="DEV"
+    if var_par1 == "PRO":
+        var_Entorno = "PRO"
+    # Valida Tipo de descarga: Ej. 1 (Trimestral) , 2 (Mensual), 3 (Anual)
+    var_TIPODESCARGA, var_TipoDes, var_TipoDes2= op1_tipo_descarga(var_par2)
+    # Valida el trimestre (solo para var_TIPODESCARGA=1): Ej. 1, 2, 3, 4, 4D
+    var_TRIMESTRE = op2_trimestre_descarga(var_par3)
+    # Valida el ejercicio: Ej. 2022, 2023, 2024
+    var_EJERCICIO = op3_ejercicio_descarga(var_par4)
+    # Valida Tipo de Fichero a descargar (1 - excel ,2 pdf , 3 ......)
+    var_TIPOFILE, var_extencion, var_extencion2 = op4_tipo_fichero(var_par5)
 
+    # -----------------------------------
+    #     DEFINIR PARÁMETROS DE APOYO
+    # -----------------------------------
+    # Para evitar que entre el trimestre si es mensual o anual 
+    if var_TIPODESCARGA != 1:
+        var_TRIMESTRE = ""
+    # Nombres de Salida y fechas
+    var_NombreSalida= f'CNBV_EEFF_{var_TipoDes}_{var_TRIMESTRE}_{var_EJERCICIO}_{var_TIPOFILE}'
+    var_Fecha = dt.now()
+    var_Fechas1 = var_Fecha.strftime('%Y-%m-%d')  # Formato "2025-03-04"
 
-
+    # ------------------------
+    #     EJECUCION PASOS
+    # ------------------------
+    print(Fore.LIGHTWHITE_EX + f' \n [ Paso-0 ] CREAR Y LIMPIAR LOS REPOSITORIOS\n ')
+    sTv_paso0(var_NombreSalida, var_EJERCICIO, var_TRIMESTRE, var_TipoDes)
+    print(Fore.YELLOW + f' \n [ Paso-1 ] NAVEGAR POR LA WEB CNBV Y DESCARGAR LOS CÓDIGOS "HTML"\n ')
+    sTv_paso1(var_NombreSalida, var_EJERCICIO, var_TRIMESTRE, var_TIPODESCARGA)
+    print(Fore.GREEN + f' \n [ Paso-2 ] CREAR INFORME "DATOS" CON LA LINEA "CURL"\n ')
+    sTv_paso2(var_NombreSalida, var_EJERCICIO, var_TRIMESTRE, var_TipoDes, var_TIPOFILE, var_extencion)
+    print(Fore.YELLOW + f' \n [ Paso-3 ] DESCARGA FICHEROS "...{var_extencion}" A PARTIR DEL EXCEL "DATOS"\n ')
+    sTv_paso3(var_NombreSalida, var_Entorno)
+    print(Fore.BLUE + f' \n [ Paso-4 ] CREAR INFORME "TOTALES" A PARTIR DE LOS EXCEL DESCARGADOS\n ')
+    sTv_paso4(var_NombreSalida, var_EJERCICIO, var_TRIMESTRE, var_TIPODESCARGA, var_TipoDes)
+    print(Fore.BLUE + f' \n [ Paso-5 ]  CREAR INFORME "FINAL" A PARTIR DE LOS EXCEL "DATOS" y "TOTALES"\n ')
+    sTv_paso5(var_NombreSalida, var_EJERCICIO, var_TRIMESTRE, var_TIPODESCARGA, var_TipoDes)
+    print(Fore.BLUE + f' \n [ Paso-6 ] MANDAR POR EMAIL EL INFORME "FINAL"\n ')
+    sTv_paso6(var_NombreSalida, var_EJERCICIO, var_TRIMESTRE, var_TIPODESCARGA, var_TipoDes2, var_Fechas1, var_Entorno)
 
 
 # ==================================================================================================
@@ -310,15 +334,14 @@ if var_NumParametros == 5:
     print(f"Parámetro 3: {var_par3} ")
     print(f"Parámetro 4: {var_par4} ")
     print(f"Parámetro 5: {var_par5} ")
-    
-    lanzador_sin_menu()
+    lanzador_sin_menu(var_par1, var_par2, var_par3, var_par4, var_par5)
 
 # Mensaje de ERROR de parametros
 if var_NumParametros != 0 and var_NumParametros != 1 and var_NumParametros != 5:
-    print("ERROR: Número de parámetros incorrecto")
-    print("      - sin parámetros   = Ejecución en modo DEV     con Menú, ej: CNBV_EEFF_Main.py")
-    print("      - con 1 parámetro  = Ejecución en modo DEV/PRO con Menú, ej: CNBV_EEFF_Main.py PRO")
-    print("      - con 5 parámetros = Ejecución en modo DEV/PRO sin Menú, ej: CNBV_EEFF_Main.py DEV 1 1 2023 1")
+    print("ERROR: Número de parámetros incorrecto, solo se admite 0, 1 o 5 parámetros; ejemplos:")
+    print("      - sin parámetros   -=> Ejecución en modo DEV     con Menú, ejm: CNBV_EEFF_Main.py")
+    print("      - con 1 parámetro  -=> Ejecución en modo DEV/PRO con Menú, ejm: CNBV_EEFF_Main.py PRO")
+    print("      - con 5 parámetros -=> Ejecución en modo DEV/PRO sin Menú, ejm: CNBV_EEFF_Main.py DEV 1 1 2023 1")
 
 
 
