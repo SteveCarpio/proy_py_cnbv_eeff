@@ -25,9 +25,9 @@ if var_Parametro == "?":
     sTv_ayuda()
     sys.exit(0)
 
-var_Entorno="PRO"
-if var_Parametro == "DEV":
-    var_Entorno = "DEV"
+var_Entorno="DEV"
+if var_Parametro == "PRO":
+    var_Entorno = "PRO"
 
 # Inicializar colorama
 init(autoreset=True)
@@ -173,58 +173,58 @@ while True:
 
             if var_tmp0 != '*':  # Si no ejecuto el paso 0 lo invoco
                 # Ejecución del paso 0
-                print(Fore.LIGHTWHITE_EX + f' \n--------------------------------- [ {var_tit0} ]\n ')
+                print(Fore.LIGHTWHITE_EX + f' \n--------------------------------- [ {var_tit0} ] Paso-0 \n ')
                 sTv_paso0(var_NombreSalida, var_EJERCICIO, var_TRIMESTRE, var_TipoDes)
                 var_tmp0 = '*'
 
-            print(Fore.YELLOW + f' \n--------------------------------- [ {var_tit1} ]\n ')
+            print(Fore.YELLOW + f' \n--------------------------------- [ {var_tit1} ] Paso-1 \n ')
             sTv_paso1(var_NombreSalida, var_EJERCICIO, var_TRIMESTRE, var_TIPODESCARGA)
             var_tmp1 = '*'
 
         case "2":        
             # Ejecución del paso 2
-            print(Fore.GREEN + f' \n--------------------------------- [ {var_tit2} ]\n ')
+            print(Fore.GREEN + f' \n--------------------------------- [ {var_tit2} ] Paso-2 \n ')
             sTv_paso2(var_NombreSalida, var_EJERCICIO, var_TRIMESTRE, var_TipoDes, var_TIPOFILE, var_extencion)
             var_tmp2 = '*'
 
         case "3":
             # Ejecución del paso 3 
-            print(Fore.YELLOW + f' \n--------------------------------- [ {var_tit3} ]\n ')
+            print(Fore.YELLOW + f' \n--------------------------------- [ {var_tit3} ] Paso-3 \n ')
             sTv_paso3(var_NombreSalida, var_Entorno)
             var_tmp3 = '*'
 
         case "4":
             # Ejecución del paso 4 
-            print(Fore.BLUE + f' \n--------------------------------- [ {var_tit4} ]\n ')
+            print(Fore.BLUE + f' \n--------------------------------- [ {var_tit4} ] Paso-4 \n ')
             sTv_paso4(var_NombreSalida, var_EJERCICIO, var_TRIMESTRE, var_TIPODESCARGA, var_TipoDes)
             var_tmp4 = '*'
             
         case "5":
             # Ejecución del paso 5 
-            print(Fore.BLUE + f' \n--------------------------------- [ {var_tit5} ]\n ')
+            print(Fore.BLUE + f' \n--------------------------------- [ {var_tit5} ] Paso-5 \n ')
             sTv_paso5(var_NombreSalida, var_EJERCICIO, var_TRIMESTRE, var_TIPODESCARGA, var_TipoDes)
             var_tmp5 = '*'
 
         case "6":
             # Ejecución del paso 6 
-            print(Fore.BLUE + f' \n--------------------------------- [ {var_tit6} ]\n ')
+            print(Fore.BLUE + f' \n--------------------------------- [ {var_tit6} ] Paso-6 \n ')
             sTv_paso6(var_NombreSalida, var_EJERCICIO, var_TRIMESTRE, var_TIPODESCARGA, var_TipoDes2, var_Fechas1, var_Entorno)
             var_tmp6 = '*'
 
         case "9":
-            print(Fore.LIGHTWHITE_EX + f' \n--------------------------------- [ {var_tit0} ]\n ')
+            print(Fore.LIGHTWHITE_EX + f' \n--------------------------------- [ {var_tit0} ] Paso-0 \n ')
             sTv_paso0(var_NombreSalida, var_EJERCICIO, var_TRIMESTRE, var_TipoDes)
-            print(Fore.YELLOW + f' \n--------------------------------- [ {var_tit1} ]\n ')
+            print(Fore.YELLOW + f' \n--------------------------------- [ {var_tit1} ] Paso-1 \n ')
             sTv_paso1(var_NombreSalida, var_EJERCICIO, var_TRIMESTRE, var_TIPODESCARGA)
-            print(Fore.GREEN + f' \n--------------------------------- [ {var_tit2} ]\n ')
+            print(Fore.GREEN + f' \n--------------------------------- [ {var_tit2} ] Paso-2 \n ')
             sTv_paso2(var_NombreSalida, var_EJERCICIO, var_TRIMESTRE, var_TipoDes, var_TIPOFILE, var_extencion)
-            print(Fore.YELLOW + f' \n--------------------------------- [ {var_tit3}]\n ')
+            print(Fore.YELLOW + f' \n--------------------------------- [ {var_tit3}] Paso-3 \n ')
             sTv_paso3(var_NombreSalida, var_Entorno)
-            print(Fore.BLUE + f' \n--------------------------------- [ {var_tit4} ]\n ')
+            print(Fore.BLUE + f' \n--------------------------------- [ {var_tit4} ] Paso-4 \n ')
             sTv_paso4(var_NombreSalida, var_EJERCICIO, var_TRIMESTRE, var_TIPODESCARGA, var_TipoDes)
-            print(Fore.BLUE + f' \n--------------------------------- [ {var_tit5} ]\n ')
+            print(Fore.BLUE + f' \n--------------------------------- [ {var_tit5} ] Paso-5 \n ')
             sTv_paso5(var_NombreSalida, var_EJERCICIO, var_TRIMESTRE, var_TIPODESCARGA, var_TipoDes)
-            print(Fore.BLUE + f' \n--------------------------------- [ {var_tit6} ]\n ')
+            print(Fore.BLUE + f' \n--------------------------------- [ {var_tit6} ] Paso-6 \n ')
             sTv_paso6(var_NombreSalida, var_EJERCICIO, var_TRIMESTRE, var_TIPODESCARGA, var_TipoDes2, var_Fechas1, var_Entorno)
             var_tmp9 = '*'
 
