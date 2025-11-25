@@ -63,9 +63,9 @@ def sTv_paso3(var_NombreSalida, var_Entorno):
         for i, row in df3.iterrows():   # for i, (_, row) in enumerate(df3.iterrows()):
         
 
-            # En modo DEV descargamos solo 10 excel, en PRO se hará una descarga completa.
+            # En modo DEV descargamos solo N files excel, en PRO se hará una descarga completa.
             if var_Entorno == "DEV":
-                if i < 3:   # type: ignore
+                if i < 5:   # type: ignore
                     var_result, var_error, var_codigo = descargo_ficheros_curl(row['CURL'])
                     print(Fore.YELLOW + f"\n--- Descargando ({i+1}/{numRegDf}): {row['FileXbrl']} ---") # type: ignore
                     print(f"{var_result}\n{var_error}")

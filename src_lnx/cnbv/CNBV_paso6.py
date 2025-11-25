@@ -28,8 +28,8 @@ def aplicar_colores_alternos(tabla_html):
     filas = soup.find_all("tr")
     for i, fila in enumerate(filas[1:]):  # saltamos la cabecera (filas[0])
         color = "#f2f2f2" if i % 2 == 0 else "#ffffff"  # (gris=f2f2f2 verdeAgua=f2fff3)
-        estilo_existente = fila.get("style", "")
-        fila["style"] = f"{estilo_existente} background-color: {color};"
+        estilo_existente = fila.get("style", "")                                                # type: ignore
+        fila["style"] = f"{estilo_existente} background-color: {color};"                        # type: ignore
 
     return str(soup)
 
@@ -38,7 +38,7 @@ def alinear_columnas_derecha(html_tabla, indices_derecha):
     filas = soup.find_all("tr")[1:]  # saltamos la cabecera
 
     for fila in filas:
-        celdas = fila.find_all(["td", "th"])
+        celdas = fila.find_all(["td", "th"])                                                    # type: ignore
         for idx in indices_derecha:
             if idx < len(celdas):
                 estilo = celdas[idx].get("style", "")
@@ -215,7 +215,7 @@ def sTv_paso6_formatea_DF(df_TOTALES1, df_TOTALES2):
         "Concepto": [v1, v2, v3, v4, v5, v6, v7],
         "Total": [total_1, total_2, total_3, total_4, total_5, total_6, total_7]
     })
-    df_1.index = range(1, len(df_1) + 1)  # empiece por el indice 1
+    df_1.index = range(1, len(df_1) + 1)  # empiece por el indice 1                     # type: ignore
     df_1["Total"] = df_1["Total"].apply(lambda x: f"{x:,.0f}".replace(",", "."))
     print(df_1)
 

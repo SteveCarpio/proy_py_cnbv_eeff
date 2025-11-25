@@ -87,7 +87,7 @@ def sTv_paso2(var_NombreSalida, var_EJERCICIO, var_TRIMESTRE, var_TipoDes, var_T
 
     # Reiniciar el índice comenzando desde 1
     df.reset_index(drop=True, inplace=True)  # Primero eliminamos el índice anterior
-    df.index = range(1, len(df) + 1)         # Creamos un índice que comienza en 1
+    df.index = range(1, len(df) + 1)         # Creamos un índice que comienza en 1                  # type: ignore
 
     # Recorremos el DF creado para crear el campo CURL
     cont = 0
@@ -105,7 +105,7 @@ def sTv_paso2(var_NombreSalida, var_EJERCICIO, var_TRIMESTRE, var_TipoDes, var_T
         v_curl2=" --data tipoArchivo="
         v_curl3=' --data "nombreArchivo='
         v_curl4=' --output '
-        df.at[i,'CURL'] = f'{v_curl1}{v_emisorid}{v_curl2}{var_TIPOFILE}{v_curl3}{v_nonfile1}"{v_curl4}{sTv.var_RutaXls}{var_TipoDes}_{var_EJERCICIO}_{var_TRIMESTRE}___{v_emisorid}_{v_nonfile2}'
+        df.at[i,'CURL'] = f'{v_curl1}{v_emisorid}{v_curl2}{var_TIPOFILE}{v_curl3}{v_nonfile1}"{v_curl4}{sTv.var_RutaXls}{var_TipoDes}_{var_EJERCICIO}_{var_TRIMESTRE}___{v_emisorid}_{v_nonfile2}'  # type: ignore
 
     # Resultado Final.
     print(df)

@@ -14,7 +14,7 @@ import shutil
 
 def sTv_paso1(var_NombreSalida, var_EJERCICIO, var_TRIMESTRE, var_TIPODESCARGA):
 
-    driver = webdriver.Chrome(service=Service(sTv.var_CHROMEDRIVER), options=chrome_options)
+    driver = webdriver.Chrome(service=Service(sTv.var_CHROMEDRIVER), options=chrome_options)                    # type: ignore
     # Si quieres ver el explorador web comentar: chrome_options.add_argument("--headless") que esta en liberías
     #driver.maximize_window()
     
@@ -74,7 +74,7 @@ def sTv_paso1(var_NombreSalida, var_EJERCICIO, var_TRIMESTRE, var_TIPODESCARGA):
         page_source = driver.find_element("xpath", "//*").get_attribute("outerHTML") 
         salidaHtml=f'{sTv.var_RutaWebFiles}{var_NombreSalida}_1.html'
         with open(salidaHtml, "w", encoding="utf-8") as file:
-            file.write(page_source)
+            file.write(page_source)                                                 # type: ignore
         print(f' Descarga: {salidaHtml}')
 
     else:
@@ -108,7 +108,7 @@ def sTv_paso1(var_NombreSalida, var_EJERCICIO, var_TRIMESTRE, var_TIPODESCARGA):
             page_source = driver.find_element("xpath", "//*").get_attribute("outerHTML") 
             salidaHtml=f'{sTv.var_RutaWebFiles}{var_NombreSalida}_{i}.html'
             with open(salidaHtml, "w", encoding="utf-8") as file:
-                file.write(page_source)
+                file.write(page_source)                                                     # type: ignore
             print(f' Descarga({i}/{web_NumMaximoPag}): {salidaHtml}')
 
     driver.quit()

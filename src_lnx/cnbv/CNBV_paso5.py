@@ -22,7 +22,7 @@ def funcion_crea_excelSalida(archivo_destino):
     
     # Cambio el nombre de la hoja1 predeterminada a RESUMEN
     ws1 = wb.active
-    ws1.title = "RESUMEN"
+    ws1.title = "RESUMEN"                       # type: ignore
 
     # Agregar otras hojas 
     #ws2 = wb.create_sheet(title="TOTALES_2")
@@ -116,7 +116,7 @@ def funcion_resumen_tipo2(par_archivo_destino):
         #print(f'r_idx:{r_idx} row:{row}')
         for c_idx, value in enumerate(row):
             #print(f'c_idx:{c_idx} value:{value}')
-            hoja.cell(row=ultima_fila + r_idx + 3, column=c_idx + 3, value=value)
+            hoja.cell(row=ultima_fila + r_idx + 3, column=c_idx + 3, value=value)           # type: ignore
 
     # Guardar los cambios en el archivo Excel
     libro.save(par_archivo_destino)
