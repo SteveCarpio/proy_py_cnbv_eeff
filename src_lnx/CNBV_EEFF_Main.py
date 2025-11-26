@@ -154,6 +154,7 @@ def lanzador_con_menu():
     var_tit4 = f'CREAR INFORME "TOTALES" A PARTIR DE LOS EXCEL DESCARGADOS'
     var_tit5 = f'CREAR INFORME "FINAL" A PARTIR DE LOS EXCEL "DATOS" y "TOTALES"'
     var_tit6 = f'MANDAR POR EMAIL EL INFORME "FINAL" '
+    var_tit7 = f'SUBIR DATOS A ORACLE '
     var_tit9 = f'EJECUTAR TODOS LOS PASOS'
     var_tmp0 = " "
     var_tmp1 = " "
@@ -162,6 +163,7 @@ def lanzador_con_menu():
     var_tmp4 = " "
     var_tmp5 = " "
     var_tmp6 = " "
+    var_tmp7 = " "
     var_tmp9 = " "
 
     while True:
@@ -180,6 +182,7 @@ def lanzador_con_menu():
         print(Fore.BLUE + f'{var_tmp4}   4 = {var_tit4}')
         print(Fore.BLUE + f'{var_tmp5}   5 = {var_tit5}')
         print(Fore.YELLOW + f'{var_tmp6}   6 = {var_tit6}')
+        print(Fore.YELLOW + f'{var_tmp7}   7 = {var_tit7}')
         print(Fore.LIGHTWHITE_EX + f'{var_tmp9}   9 = {var_tit9}') 
         print(Fore.MAGENTA + f'    ? = AYUDA')
         print(Fore.MAGENTA + f'\n                      ¡ Para SALIR escriba otro valor !')
@@ -226,21 +229,28 @@ def lanzador_con_menu():
                 print(Fore.BLUE + f' \n--------------------------------- [ {var_tit6} ] Paso-6 \n ')
                 sTv_paso6(var_NombreSalida, var_EJERCICIO, var_TRIMESTRE, var_TIPODESCARGA, var_TipoDes2, var_Fechas1, var_Entorno)
                 var_tmp6 = '*'
+            case "7":
+                # Ejecución del paso 7 
+                print(Fore.YELLOW + f' \n--------------------------------- [ {var_tit7} ] Paso-7 \n ')
+                sTv_paso7(var_NombreSalida, var_EJERCICIO, var_TRIMESTRE)
+                var_tmp7 = '*'
             case "9":
                 print(Fore.LIGHTWHITE_EX + f' \n--------------------------------- [ {var_tit0} ] Paso-0 \n ')
-                sTv_paso0(var_NombreSalida, var_EJERCICIO, var_TRIMESTRE, var_TipoDes)
+                #sTv_paso0(var_NombreSalida, var_EJERCICIO, var_TRIMESTRE, var_TipoDes)
                 print(Fore.YELLOW + f' \n--------------------------------- [ {var_tit1} ] Paso-1 \n ')
-                sTv_paso1(var_NombreSalida, var_EJERCICIO, var_TRIMESTRE, var_TIPODESCARGA)
+                #sTv_paso1(var_NombreSalida, var_EJERCICIO, var_TRIMESTRE, var_TIPODESCARGA)
                 print(Fore.GREEN + f' \n--------------------------------- [ {var_tit2} ] Paso-2 \n ')
-                sTv_paso2(var_NombreSalida, var_EJERCICIO, var_TRIMESTRE, var_TipoDes, var_TIPOFILE, var_extencion)
+                #sTv_paso2(var_NombreSalida, var_EJERCICIO, var_TRIMESTRE, var_TipoDes, var_TIPOFILE, var_extencion)
                 print(Fore.YELLOW + f' \n--------------------------------- [ {var_tit3}] Paso-3 \n ')
-                sTv_paso3(var_NombreSalida, var_Entorno)
+                #sTv_paso3(var_NombreSalida, var_Entorno)
                 print(Fore.BLUE + f' \n--------------------------------- [ {var_tit4} ] Paso-4 \n ')
-                sTv_paso4(var_NombreSalida, var_EJERCICIO, var_TRIMESTRE, var_TIPODESCARGA, var_TipoDes)
+                #sTv_paso4(var_NombreSalida, var_EJERCICIO, var_TRIMESTRE, var_TIPODESCARGA, var_TipoDes)
                 print(Fore.BLUE + f' \n--------------------------------- [ {var_tit5} ] Paso-5 \n ')
-                sTv_paso5(var_NombreSalida, var_EJERCICIO, var_TRIMESTRE, var_TIPODESCARGA, var_TipoDes)
+                #sTv_paso5(var_NombreSalida, var_EJERCICIO, var_TRIMESTRE, var_TIPODESCARGA, var_TipoDes)
                 print(Fore.BLUE + f' \n--------------------------------- [ {var_tit6} ] Paso-6 \n ')
-                sTv_paso6(var_NombreSalida, var_EJERCICIO, var_TRIMESTRE, var_TIPODESCARGA, var_TipoDes2, var_Fechas1, var_Entorno)
+                #sTv_paso6(var_NombreSalida, var_EJERCICIO, var_TRIMESTRE, var_TIPODESCARGA, var_TipoDes2, var_Fechas1, var_Entorno)
+                print(Fore.YELLOW + f' \n--------------------------------- [ {var_tit7} ] Paso-7 \n ')
+                sTv_paso7(var_NombreSalida, var_EJERCICIO, var_TRIMESTRE)
                 var_tmp9 = '*'
             case "?":
                 sTv_ayuda()
