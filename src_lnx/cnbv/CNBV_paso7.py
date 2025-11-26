@@ -44,6 +44,7 @@ def tratamiento_df(df_curl, df_tot1, df_tot2, var_EJERCICIO, var_TRIMESTRE):
     df_tot2_ordenado = df_tot2_ordenado.reset_index(drop=True)
     return df_curl_ordenado, df_tot1_ordenado, df_tot2_ordenado
 
+# Update Oracle: CNBV_EEFF_FILECURL
 def subir_oracle_curl(conexion, cursor, df_curl_ordenado):
     if len(df_curl_ordenado) > 0:
         print(f"UPDATE ORACLE {sTv.var_Ora_TAB3}: se van a subir {len(df_curl_ordenado)} registros\n")      # type: ignore
@@ -51,6 +52,7 @@ def subir_oracle_curl(conexion, cursor, df_curl_ordenado):
     else:
         print(f"No hay datos para subir a la tabla oracle:  {sTv.var_Ora_TAB3}")                            # type: ignore
 
+# Update Oracle: CNBV_EEFF_TOTALES1
 def subir_oracle_tot1(conexion, cursor, df_tot1_ordenado):
     if len(df_tot1_ordenado) > 0:
         print(f"\nUPDATE ORACLE {sTv.var_Ora_TAB1}: se van a subir {len(df_tot1_ordenado)} registros\n")    # type: ignore
@@ -58,6 +60,7 @@ def subir_oracle_tot1(conexion, cursor, df_tot1_ordenado):
     else:
         print(f"No hay datos para subir a la tabla oracle:  {sTv.var_Ora_TAB1}")                            # type: ignore
 
+# Update Oracle: CNBV_EEFF_TOTALES2
 def subir_oracle_tot2(conexion, cursor, df_tot2_ordenado):
     if len(df_tot2_ordenado) > 0:
         print(f"\nUPDATE ORACLE {sTv.var_Ora_TAB2}: se van a subir {len(df_tot2_ordenado)} registros\n")    # type: ignore
