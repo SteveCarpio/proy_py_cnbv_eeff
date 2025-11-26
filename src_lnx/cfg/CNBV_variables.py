@@ -24,6 +24,17 @@ var_RutaConfig=f'{var_RutaRaiz}CONFIG/'
 var_RutaXls=f'{var_RutaRaiz}XLS/'
 
 # ----------------------------------------------------------------------------------------
+#                          VARIABLES ORACLE
+# ----------------------------------------------------------------------------------------
+
+var_Ora_DNS="COMUN"
+var_Ora_UID="PYDATA"
+var_Ora_PWD="PYDATA"
+var_Ora_TAB1="CNBV_EEFF_TOTALES1"
+var_Ora_TAB2="CNBV_EEFF_TOTALES2"
+var_Ora_TAB3="CNBV_EEFF_FILECURL"
+
+# ----------------------------------------------------------------------------------------
 #                          HOJAS DEL EXCEL
 # ----------------------------------------------------------------------------------------
 var_libro1="210000"
