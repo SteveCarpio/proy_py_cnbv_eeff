@@ -290,19 +290,19 @@ def lanzador_sin_menu(var_par1, var_par2, var_par3, var_par4, var_par5):
     #     EJECUCION PASOS
     # ------------------------
     print(Fore.LIGHTWHITE_EX + f' \n [Paso-0 : {dt.now().strftime('%H:%M')}] CREAR Y LIMPIAR LOS REPOSITORIOS \n                                  ')
-    #sTv_paso0(var_NombreSalida, var_EJERCICIO, var_TRIMESTRE, var_TipoDes)
+    sTv_paso0(var_NombreSalida, var_EJERCICIO, var_TRIMESTRE, var_TipoDes)
     print(Fore.YELLOW +        f' \n [Paso-1 : {dt.now().strftime('%H:%M')}] NAVEGAR POR LA WEB CNBV Y DESCARGAR LOS CÓDIGOS "HTML"\n             ')
-    #sTv_paso1(var_NombreSalida, var_EJERCICIO, var_TRIMESTRE, var_TIPODESCARGA)
+    sTv_paso1(var_NombreSalida, var_EJERCICIO, var_TRIMESTRE, var_TIPODESCARGA)
     print(Fore.GREEN +         f' \n [Paso-2 : {dt.now().strftime('%H:%M')}] CREAR INFORME "DATOS" CON LA LINEA "CURL"\n                          ')
-    #sTv_paso2(var_NombreSalida, var_EJERCICIO, var_TRIMESTRE, var_TipoDes, var_TIPOFILE, var_extencion)
+    sTv_paso2(var_NombreSalida, var_EJERCICIO, var_TRIMESTRE, var_TipoDes, var_TIPOFILE, var_extencion)
     print(Fore.YELLOW +        f' \n [Paso-3 : {dt.now().strftime('%H:%M')}] DESCARGA FICHEROS "...{var_extencion}" A PARTIR DEL EXCEL "DATOS" \n ')
-    #sTv_paso3(var_NombreSalida, var_Entorno)
+    sTv_paso3(var_NombreSalida, var_Entorno)
     print(Fore.BLUE +          f' \n [Paso-4 : {dt.now().strftime('%H:%M')}] CREAR INFORME "TOTALES" A PARTIR DE LOS EXCEL DESCARGADOS \n         ')
-    #sTv_paso4(var_NombreSalida, var_EJERCICIO, var_TRIMESTRE, var_TIPODESCARGA, var_TipoDes)
+    sTv_paso4(var_NombreSalida, var_EJERCICIO, var_TRIMESTRE, var_TIPODESCARGA, var_TipoDes)
     print(Fore.BLUE +          f' \n [Paso-5 : {dt.now().strftime('%H:%M')}] CREAR INFORME "FINAL" A PARTIR DE LOS EXCEL "DATOS" y "TOTALES" \n   ')
-    #sTv_paso5(var_NombreSalida, var_EJERCICIO, var_TRIMESTRE, var_TIPODESCARGA, var_TipoDes)
+    sTv_paso5(var_NombreSalida, var_EJERCICIO, var_TRIMESTRE, var_TIPODESCARGA, var_TipoDes)
     print(Fore.BLUE +          f' \n [Paso-6 : {dt.now().strftime('%H:%M')}] MANDAR POR EMAIL EL INFORME "FINAL" \n                               ')
-    #sTv_paso6(var_NombreSalida, var_EJERCICIO, var_TRIMESTRE, var_TIPODESCARGA, var_TipoDes2, var_Fechas1, var_Entorno)
+    sTv_paso6(var_NombreSalida, var_EJERCICIO, var_TRIMESTRE, var_TIPODESCARGA, var_TipoDes2, var_Fechas1, var_Entorno)
 
 
 # ==================================================================================================
