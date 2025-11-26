@@ -15,6 +15,9 @@ def lectura_df(var_NombreSalida):
     df_curl = pd.read_excel(f"{sTv.var_RutaInforme}{var_NombreSalida}_Final.xlsx",  sheet_name="DATA")
     df_tot1 = pd.read_excel(f"{sTv.var_RutaInforme}{var_NombreSalida}_Final.xlsx",  sheet_name="TOTALES1")
     df_tot2 = pd.read_excel(f"{sTv.var_RutaInforme}{var_NombreSalida}_Final.xlsx",  sheet_name="TOTALES2")
+    print(f"\nSe han leído {len(df_curl)} registros para: df_curl")
+    print(f"Se han leído {len(df_tot1)} registros para: df_tot1")
+    print(f"Se han leído {len(df_tot2)} registros para: df_tot2")
     return df_curl, df_tot1, df_tot2
 
 # Tratamiento de los DF de entrada
@@ -41,41 +44,39 @@ def tratamiento_df(df_curl, df_tot1, df_tot2, var_EJERCICIO, var_TRIMESTRE):
     df_tot2_ordenado = df_tot2_ordenado.reset_index(drop=True)
     return df_curl_ordenado, df_tot1_ordenado, df_tot2_ordenado
 
-def subir_oracle_curl(df_curl_ordenado):
+def subir_oracle_curl(conexion, cursor, df_curl_ordenado):
     if len(df_curl_ordenado) > 0:
-        print(f"Subir datos a la tabla Oracle: {sTv.var_Ora_TAB3}")                 # type: ignore
+        print(f"UPDATE ORACLE {sTv.var_Ora_TAB3}: se van a subir {len(df_curl_ordenado)} registros\n")     # type: ignore
         print(df_curl_ordenado)
     else:
-        print(f"No hay datos para subir a la tabla oracle:  {sTv.var_Ora_TAB3}")    # type: ignore
+        print(f"No hay datos para subir a la tabla oracle:  {sTv.var_Ora_TAB3}")                    # type: ignore
 
-def subir_oracle_tot1(df_tot1_ordenado):
+def subir_oracle_tot1(conexion, cursor, df_tot1_ordenado):
     if len(df_tot1_ordenado) > 0:
-        print(f"Subir datos a la tabla Oracle: {sTv.var_Ora_TAB1}")                 # type: ignore
+        print(f"\nUPDATE ORACLE {sTv.var_Ora_TAB1}: se van a subir {len(df_tot1_ordenado)} registros\n")    # type: ignore
         print(df_tot1_ordenado)
     else:
-        print(f"No hay datos para subir a la tabla oracle:  {sTv.var_Ora_TAB1}")    # type: ignore
+        print(f"No hay datos para subir a la tabla oracle:  {sTv.var_Ora_TAB1}")                    # type: ignore
 
-def subir_oracle_tot2(df_tot2_ordenado):
+def subir_oracle_tot2(conexion, cursor, df_tot2_ordenado):
     if len(df_tot2_ordenado) > 0:
-        print(f"Subir datos a la tabla Oracle: {sTv.var_Ora_TAB2}")                 # type: ignore
+        print(f"\nUPDATE ORACLE {sTv.var_Ora_TAB2}: se van a subir {len(df_tot2_ordenado)} registros\n")   # type: ignore
         print(df_tot2_ordenado)
     else:
-        print(f"No hay datos para subir a la tabla oracle:  {sTv.var_Ora_TAB2}")    # type: ignore
+        print(f"No hay datos para subir a la tabla oracle:  {sTv.var_Ora_TAB2}")                    # type: ignore
 
 
 # ----------------------------------------------------------------------------------------
 #                             INICIO DE PROGRAMA
 # ----------------------------------------------------------------------------------------
 
-def sTv_paso7(var_NombreSalida, var_EJERCICIO, var_TRIMESTRE):     #, var_TIPODESCARGA, var_TipoDes2, var_Fechas1, var_Entorno):
-    print("Paso7 - Subir datos oracle")
-    print(f"{var_NombreSalida}_Final.xlsx")
-    print(var_EJERCICIO)      # año
-    print(var_TRIMESTRE)      # 1,2,3,4,4D
-    #print(var_TIPODESCARGA)  # 1,2
-    #print(var_TipoDes2)      # Trimestral
-    #print(var_Fechas1)       # 2025-11-26
-    #print(var_Entorno)       # DEV / PRO
+def sTv_paso7(var_NombreSalida, var_EJERCICIO, var_TRIMESTRE):
+
+    print(f"Variables: {var_NombreSalida}_Final.xlsx - {var_EJERCICIO} - {var_TRIMESTRE}")
+
+    # Valida que siga conectado a oracle
+    conexion = None
+    cursor   = None
 
     # Verificar si existe el file de entrada
     ruta_excel = Path(f"{sTv.var_RutaInforme}{var_NombreSalida}_Final.xlsx")            # type: ignore
@@ -93,12 +94,11 @@ def sTv_paso7(var_NombreSalida, var_EJERCICIO, var_TRIMESTRE):     #, var_TIPODE
         # Establecer Conexión Oracle:
         conexion, cursor = Oracle_Establece_Conexion(oracle_dns, oracle_uid, oracle_pwd)
 
-        # Valida que siga conectado a oracle
         if (conexion != None) or (cursor != None):
-
-            subir_oracle_curl(df_curl_ordenado)
-            subir_oracle_tot1(df_tot1_ordenado)
-            subir_oracle_tot2(df_tot2_ordenado)
+            
+            subir_oracle_curl(conexion, cursor, df_curl_ordenado)
+            subir_oracle_tot1(conexion, cursor, df_tot1_ordenado)
+            subir_oracle_tot2(conexion, cursor, df_tot2_ordenado)
 
         # Cierro de conexiones Oracle y libero memoria
         Oracle_Cerrar_Conexion(conexion, cursor)
