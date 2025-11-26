@@ -16,7 +16,7 @@ from   cnbv.CNBV_paso3 import sTv_paso3
 from   cnbv.CNBV_paso4 import sTv_paso4
 from   cnbv.CNBV_paso5 import sTv_paso5
 from   cnbv.CNBV_paso6 import sTv_paso6
-
+from   cnbv.CNBV_paso7 import sTv_paso7
 
 # ==================================================================================================
 # FUNCIONES APOYO
@@ -228,19 +228,19 @@ def lanzador_con_menu():
                 var_tmp6 = '*'
             case "9":
                 print(Fore.LIGHTWHITE_EX + f' \n--------------------------------- [ {var_tit0} ] Paso-0 \n ')
-                #sTv_paso0(var_NombreSalida, var_EJERCICIO, var_TRIMESTRE, var_TipoDes)
+                sTv_paso0(var_NombreSalida, var_EJERCICIO, var_TRIMESTRE, var_TipoDes)
                 print(Fore.YELLOW + f' \n--------------------------------- [ {var_tit1} ] Paso-1 \n ')
-                #sTv_paso1(var_NombreSalida, var_EJERCICIO, var_TRIMESTRE, var_TIPODESCARGA)
+                sTv_paso1(var_NombreSalida, var_EJERCICIO, var_TRIMESTRE, var_TIPODESCARGA)
                 print(Fore.GREEN + f' \n--------------------------------- [ {var_tit2} ] Paso-2 \n ')
-                #sTv_paso2(var_NombreSalida, var_EJERCICIO, var_TRIMESTRE, var_TipoDes, var_TIPOFILE, var_extencion)
+                sTv_paso2(var_NombreSalida, var_EJERCICIO, var_TRIMESTRE, var_TipoDes, var_TIPOFILE, var_extencion)
                 print(Fore.YELLOW + f' \n--------------------------------- [ {var_tit3}] Paso-3 \n ')
-                #sTv_paso3(var_NombreSalida, var_Entorno)
+                sTv_paso3(var_NombreSalida, var_Entorno)
                 print(Fore.BLUE + f' \n--------------------------------- [ {var_tit4} ] Paso-4 \n ')
-                #sTv_paso4(var_NombreSalida, var_EJERCICIO, var_TRIMESTRE, var_TIPODESCARGA, var_TipoDes)
+                sTv_paso4(var_NombreSalida, var_EJERCICIO, var_TRIMESTRE, var_TIPODESCARGA, var_TipoDes)
                 print(Fore.BLUE + f' \n--------------------------------- [ {var_tit5} ] Paso-5 \n ')
-                #sTv_paso5(var_NombreSalida, var_EJERCICIO, var_TRIMESTRE, var_TIPODESCARGA, var_TipoDes)
+                sTv_paso5(var_NombreSalida, var_EJERCICIO, var_TRIMESTRE, var_TIPODESCARGA, var_TipoDes)
                 print(Fore.BLUE + f' \n--------------------------------- [ {var_tit6} ] Paso-6 \n ')
-                #sTv_paso6(var_NombreSalida, var_EJERCICIO, var_TRIMESTRE, var_TIPODESCARGA, var_TipoDes2, var_Fechas1, var_Entorno)
+                sTv_paso6(var_NombreSalida, var_EJERCICIO, var_TRIMESTRE, var_TIPODESCARGA, var_TipoDes2, var_Fechas1, var_Entorno)
                 var_tmp9 = '*'
             case "?":
                 sTv_ayuda()
@@ -301,8 +301,11 @@ def lanzador_sin_menu(var_par1, var_par2, var_par3, var_par4, var_par5):
     sTv_paso4(var_NombreSalida, var_EJERCICIO, var_TRIMESTRE, var_TIPODESCARGA, var_TipoDes)
     print(Fore.BLUE +          f' \n [Paso-5 : {dt.now().strftime('%H:%M')}] CREAR INFORME "FINAL" A PARTIR DE LOS EXCEL "DATOS" y "TOTALES" \n   ')
     sTv_paso5(var_NombreSalida, var_EJERCICIO, var_TRIMESTRE, var_TIPODESCARGA, var_TipoDes)
-    print(Fore.BLUE +          f' \n [Paso-6 : {dt.now().strftime('%H:%M')}] MANDAR POR EMAIL EL INFORME "FINAL" \n                               ')
+    print(Fore.YELLOW +        f' \n [Paso-6 : {dt.now().strftime('%H:%M')}] MANDAR POR EMAIL EL INFORME "FINAL" \n                               ')
     sTv_paso6(var_NombreSalida, var_EJERCICIO, var_TRIMESTRE, var_TIPODESCARGA, var_TipoDes2, var_Fechas1, var_Entorno)
+    
+    print(Fore.YELLOW +        f' \n [Paso-7 : {dt.now().strftime('%H:%M')}] MANDAR POR EMAIL EL INFORME "FINAL" \n                               ')
+    sTv_paso7(var_NombreSalida, var_EJERCICIO, var_TRIMESTRE, var_TIPODESCARGA, var_TipoDes2, var_Fechas1, var_Entorno)
 
 
 # ==================================================================================================
