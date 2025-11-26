@@ -11,6 +11,7 @@ from   cfg.CNBV_librerias import *
 # ----------------------------------------------------------------------------------------
 
 def sTv_paso7(var_NombreSalida, var_EJERCICIO, var_TRIMESTRE):     #, var_TIPODESCARGA, var_TipoDes2, var_Fechas1, var_Entorno):
+    
     print("Paso7 - Subir datos oracle")
     print(f"{var_NombreSalida}_Final.xlsx")
     print(var_EJERCICIO)      # año
@@ -59,7 +60,9 @@ def sTv_paso7(var_NombreSalida, var_EJERCICIO, var_TRIMESTRE):     #, var_TIPODE
         print(df_curl_ordenado)
         print(df_tot1_ordenado)
         print(df_tot2_ordenado)
+
     else:
+
         print(f"\n ¡ No existe el file: {ruta_excel} !")
         print(f" ¡ No podemos subir datos a Oracle de los Estados Financieros !")
 
