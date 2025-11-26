@@ -1,30 +1,55 @@
--- Creación de la BBDD de Eventos Relevantes para el tratamiento de las bolsas BMW y BIVA
+-- Creación de la BBDD de Estados financieros de la CNBV
+
 /*
-CREATE TABLE P_BOLSAS_EVENTOS_RELEVANTES (
-    FECHA      DATE,
-    N          NUMBER ,
-    CLAVE      VARCHAR2(15),
-    SECCION    VARCHAR2(80),
-    ASUNTO     VARCHAR2(500),
-    URL        VARCHAR2(350),
-    ARCHIVO    VARCHAR2(250),
-    ORIGEN     VARCHAR2(6),
-    T          VARCHAR2(2),
-    FILTRO     VARCHAR2(10),
-    FPROCESO   DATE,
-    NOTA       VARCHAR2(15)
+CREATE TABLE P_CNBV_EEFF_FILECURL (
+    Periodo         VARCHAR2(10),
+    ClavePizarra    VARCHAR2(40),
+    Iden            NUMBER,
+    FEnvio          DATE,
+    Taxonomia       VARCHAR2(50),
+    FileXbrl        VARCHAR2(100),
+    TipoFile        NUMBER,
+    CURL            VARCHAR2(600)
 );
-CREATE UNIQUE INDEX idx_P_BOLSAS_EVENTOS_RELEVANTES
-ON P_BOLSAS_EVENTOS_RELEVANTES(FECHA, N, CLAVE, SECCION, ASUNTO, URL, ARCHIVO, ORIGEN, T, FILTRO);
 
-CREATE INDEX idx_P_BOLSAS_EVENTOS_RELEVANTES_T
-ON P_BOLSAS_EVENTOS_RELEVANTES(T);
+CREATE TABLE P_CNBV_EEFF_TOTALES1 (
+    Periodo         VARCHAR2(10),
+    Iden            NUMBER,
+    Hoja            VARCHAR2(10),
+    ColumnaA        NUMBER,
+    ColumnaB        NUMBER,
+    ColumnaC        NUMBER,
+    FileX           VARCHAR2(100)
+);
 
-CREATE INDEX idx_P_BOLSAS_EVENTOS_RELEVANTES_FECHA
-ON P_BOLSAS_EVENTOS_RELEVANTES(FECHA);
+CREATE TABLE P_CNBV_EEFF_TOTALES2(
+    Periodo             VARCHAR2(10),
+    ClavePizarra        VARCHAR2(40),
+    Iden                NUMBER,
+    FEnvio              DATE,           
+    Taxonomia           VARCHAR2(50),
+    TActivos            NUMBER,
+    TActivosCirculantes NUMBER, 
+    TCapitalContable    NUMBER,
+    TPasivosCirculantes NUMBER,    
+    TPasivos            NUMBER,
+    UtilPerdOperacion   NUMBER,
+    UtilPerdNeta        NUMBER
+);
 
-CREATE INDEX idx_P_BOLSAS_EVENTOS_RELEVANTES_FECHA_T
-ON P_BOLSAS_EVENTOS_RELEVANTES(FECHA, T);
+
+CREATE UNIQUE INDEX idx_CNBV_EEFF_FILECURL_1 ON P_CNBV_EEFF_FILECURL(Periodo);
+CREATE UNIQUE INDEX idx_CNBV_EEFF_FILECURL_2 ON P_CNBV_EEFF_FILECURL(ClavePizarra);
+CREATE UNIQUE INDEX idx_CNBV_EEFF_FILECURL_3 ON P_CNBV_EEFF_FILECURL(Periodo, ClavePizarra);
+
+CREATE UNIQUE INDEX idx_CNBV_EEFF_TOTALES1_1 ON P_CNBV_EEFF_TOTALES1(Periodo);
+CREATE UNIQUE INDEX idx_CNBV_EEFF_TOTALES1_2 ON P_CNBV_EEFF_TOTALES1(Iden);
+CREATE UNIQUE INDEX idx_CNBV_EEFF_TOTALES1_3 ON P_CNBV_EEFF_TOTALES1(Periodo, Iden);
+
+CREATE UNIQUE INDEX idx_CNBV_EEFF_TOTALES2_1 ON P_CNBV_EEFF_TOTALES2(Periodo);
+CREATE UNIQUE INDEX idx_CNBV_EEFF_TOTALES2_2 ON P_CNBV_EEFF_TOTALES2(ClavePizarra);
+CREATE UNIQUE INDEX idx_CNBV_EEFF_TOTALES2_3 ON P_CNBV_EEFF_TOTALES2(Periodo, ClavePizarra);
+
 
 */
 
