@@ -256,7 +256,6 @@ def lanzador_con_menu():
 # FUNCION: LANZADOR SIN MENÚ
 # ==================================================================================================
 def lanzador_sin_menu(var_par1, var_par2, var_par3, var_par4, var_par5):
-    print("Inicio: Lanzador sin Menú")
     # Inicializar colorama
     init(autoreset=True)
 
@@ -290,20 +289,20 @@ def lanzador_sin_menu(var_par1, var_par2, var_par3, var_par4, var_par5):
     # ------------------------
     #     EJECUCION PASOS
     # ------------------------
-    print(Fore.LIGHTWHITE_EX + f' \n [ Paso-0 ] CREAR Y LIMPIAR LOS REPOSITORIOS\n ')
-    sTv_paso0(var_NombreSalida, var_EJERCICIO, var_TRIMESTRE, var_TipoDes)
-    print(Fore.YELLOW + f' \n [ Paso-1 ] NAVEGAR POR LA WEB CNBV Y DESCARGAR LOS CÓDIGOS "HTML"\n ')
-    sTv_paso1(var_NombreSalida, var_EJERCICIO, var_TRIMESTRE, var_TIPODESCARGA)
-    print(Fore.GREEN + f' \n [ Paso-2 ] CREAR INFORME "DATOS" CON LA LINEA "CURL"\n ')
-    sTv_paso2(var_NombreSalida, var_EJERCICIO, var_TRIMESTRE, var_TipoDes, var_TIPOFILE, var_extencion)
-    print(Fore.YELLOW + f' \n [ Paso-3 ] DESCARGA FICHEROS "...{var_extencion}" A PARTIR DEL EXCEL "DATOS"\n ')
-    sTv_paso3(var_NombreSalida, var_Entorno)
-    print(Fore.BLUE + f' \n [ Paso-4 ] CREAR INFORME "TOTALES" A PARTIR DE LOS EXCEL DESCARGADOS\n ')
-    sTv_paso4(var_NombreSalida, var_EJERCICIO, var_TRIMESTRE, var_TIPODESCARGA, var_TipoDes)
-    print(Fore.BLUE + f' \n [ Paso-5 ]  CREAR INFORME "FINAL" A PARTIR DE LOS EXCEL "DATOS" y "TOTALES"\n ')
-    sTv_paso5(var_NombreSalida, var_EJERCICIO, var_TRIMESTRE, var_TIPODESCARGA, var_TipoDes)
-    print(Fore.BLUE + f' \n [ Paso-6 ] MANDAR POR EMAIL EL INFORME "FINAL"\n ')
-    sTv_paso6(var_NombreSalida, var_EJERCICIO, var_TRIMESTRE, var_TIPODESCARGA, var_TipoDes2, var_Fechas1, var_Entorno)
+    print(Fore.LIGHTWHITE_EX + f' \n [Paso-0 : {dt.now().strftime('%H:%M')}] CREAR Y LIMPIAR LOS REPOSITORIOS \n                                  ')
+    #sTv_paso0(var_NombreSalida, var_EJERCICIO, var_TRIMESTRE, var_TipoDes)
+    print(Fore.YELLOW +        f' \n [Paso-1 : {dt.now().strftime('%H:%M')}] NAVEGAR POR LA WEB CNBV Y DESCARGAR LOS CÓDIGOS "HTML"\n             ')
+    #sTv_paso1(var_NombreSalida, var_EJERCICIO, var_TRIMESTRE, var_TIPODESCARGA)
+    print(Fore.GREEN +         f' \n [Paso-2 : {dt.now().strftime('%H:%M')}] CREAR INFORME "DATOS" CON LA LINEA "CURL"\n                          ')
+    #sTv_paso2(var_NombreSalida, var_EJERCICIO, var_TRIMESTRE, var_TipoDes, var_TIPOFILE, var_extencion)
+    print(Fore.YELLOW +        f' \n [Paso-3 : {dt.now().strftime('%H:%M')}] DESCARGA FICHEROS "...{var_extencion}" A PARTIR DEL EXCEL "DATOS" \n ')
+    #sTv_paso3(var_NombreSalida, var_Entorno)
+    print(Fore.BLUE +          f' \n [Paso-4 : {dt.now().strftime('%H:%M')}] CREAR INFORME "TOTALES" A PARTIR DE LOS EXCEL DESCARGADOS \n         ')
+    #sTv_paso4(var_NombreSalida, var_EJERCICIO, var_TRIMESTRE, var_TIPODESCARGA, var_TipoDes)
+    print(Fore.BLUE +          f' \n [Paso-5 : {dt.now().strftime('%H:%M')}] CREAR INFORME "FINAL" A PARTIR DE LOS EXCEL "DATOS" y "TOTALES" \n   ')
+    #sTv_paso5(var_NombreSalida, var_EJERCICIO, var_TRIMESTRE, var_TIPODESCARGA, var_TipoDes)
+    print(Fore.BLUE +          f' \n [Paso-6 : {dt.now().strftime('%H:%M')}] MANDAR POR EMAIL EL INFORME "FINAL" \n                               ')
+    #sTv_paso6(var_NombreSalida, var_EJERCICIO, var_TRIMESTRE, var_TIPODESCARGA, var_TipoDes2, var_Fechas1, var_Entorno)
 
 
 # ==================================================================================================
@@ -334,7 +333,13 @@ if var_NumParametros == 5:
     print(f"Parámetro 3: {var_par3} ")
     print(f"Parámetro 4: {var_par4} ")
     print(f"Parámetro 5: {var_par5} ")
+    var_Fecha = dt.now()
+    var_Fecha1 = var_Fecha.strftime('%Y-%m-%d %H:%M')
+    print(f"\n--------- INICIO PROGRAMA CNBV_EEFF ---------- [{var_Fecha1}] ")
     lanzador_sin_menu(var_par1, var_par2, var_par3, var_par4, var_par5)
+    var_Fecha = dt.now()
+    var_Fecha2 = var_Fecha.strftime('%Y-%m-%d %H:%M')
+    print(f"\n--------- FIN PROGRAMA CNBV_EEFF ---------- [{var_Fecha1} --> {var_Fecha2}] ")
 
 # Mensaje de ERROR de parametros
 if var_NumParametros != 0 and var_NumParametros != 1 and var_NumParametros != 5:
