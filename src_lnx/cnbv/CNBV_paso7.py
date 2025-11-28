@@ -44,17 +44,28 @@ def tratamiento_df(df_curl, df_tot1, df_tot2, var_EJERCICIO, var_TRIMESTRE):
     df_tot2_ordenado = df_tot2_ordenado.reset_index(drop=True)
     return df_curl_ordenado, df_tot1_ordenado, df_tot2_ordenado
 
+# Delete Oracle: Borro los registros de un periodo
+def borrar_resgistros(conexion, cursor, periodo, tabla_ora):
+    sql_contar = f"SELECT COUNT(*) FROM {tabla_ora} WHERE PERIODO = :v_PERIODO"
+    cursor.execute(sql_contar, v_PERIODO=periodo)
+    filas_a_eliminar, = cursor.fetchone()
+    if filas_a_eliminar > 0: 
+        sql_delete = f"DELETE FROM {tabla_ora} WHERE PERIODO = :v_PERIODO"
+        cursor.execute(sql_delete, v_PERIODO=periodo)
+        conexion.commit()
+        filas_eliminadas = cursor.rowcount
+        print(f"AVISO: existen: {filas_eliminadas}, registros del periodo: {periodo}, en la tabla: {tabla_ora}")
+        print("Se procede a lanzar el DELETE de esos registros antes de lanzar el UPDATE")
+    else:
+        print(f"OK: NO existen datos del periodo:{periodo}, en la tabla:{tabla_ora}, se procede a hacer el UPDATE")
+
 # Update Oracle: CNBV_EEFF_FILECURL
 def subir_oracle_curl(conexion, cursor, df_curl_ordenado):
     tab_ora = sTv.var_Ora_TAB3   # type: ignore
     if len(df_curl_ordenado) > 0:
         print(f"UPDATE ORACLE {tab_ora}: se van a subir {len(df_curl_ordenado)} registros\n")      
         print(df_curl_ordenado)
-        print("------")
-        df_curl_ordenado['FEnvio'] = pd.to_datetime(df_curl_ordenado['FEnvio'], errors='coerce')
-        print(df_curl_ordenado['FEnvio'].dtype)
-        print("------")
-
+        
         # Recorro el DataFrame registro por registro
         for index, row in df_curl_ordenado.iterrows():
             v_Periodo         = row['Periodo']
@@ -72,14 +83,12 @@ def subir_oracle_curl(conexion, cursor, df_curl_ordenado):
 
             try:
                 # Ejecutar INSERT con binds nombrados (oracledb)
-                # 
                 sql = f"""
                 INSERT INTO {tab_ora}               
                     (Periodo, ClavePizarra, Iden, FEnvio, Taxonomia, FileXbrl, TipoFile, CURL)
                 VALUES
                     (:Periodo, :ClavePizarra, :Iden, :FEnvio, :Taxonomia, :FileXbrl, :TipoFile, :CURL)
                 """  
-
                 params = {
                     "Periodo": v_Periodo, 
                     "ClavePizarra": v_ClavePizarra, 
@@ -90,13 +99,11 @@ def subir_oracle_curl(conexion, cursor, df_curl_ordenado):
                     "TipoFile": v_TipoFile, 
                     "CURL": v_CURL
                 }
-
                 cursor.execute(sql, params) 
 
                 print(Fore.CYAN + f"Registro {index + 1} insertado en el servidor PYTHON ORACLE ({v_Periodo})")  
                 print(Fore.WHITE + f"  {v_Periodo} - {v_ClavePizarra} - {v_Iden} - {v_FEnvio} - {v_Taxonomia} - {v_FileXbrl}")
                 print(Fore.WHITE + f"  {v_TipoFile} - {v_CURL}\n")
-
             except Exception as e:
                 # Puedes afinar el manejo según el código de error (duplicado, constraint, etc.)
                 print(Fore.RED + f"Registro {index + 1} no insertado en el servidor PYTHON ORACLE: {e}") 
@@ -105,7 +112,6 @@ def subir_oracle_curl(conexion, cursor, df_curl_ordenado):
 
         # Oracle, Confirma los cambios
         conexion.commit() 
-
     else:
         print(f"No hay datos para subir a la tabla oracle:  {tab_ora}")                       
 
@@ -115,6 +121,8 @@ def subir_oracle_tot1(conexion, cursor, df_tot1_ordenado):
     if len(df_tot1_ordenado) > 0:
         print(f"\nUPDATE ORACLE {tab_ora}: se van a subir {len(df_tot1_ordenado)} registros\n")
         print(df_tot1_ordenado)
+        df_tot1_ordenado['FEnvio'] = pd.to_datetime(df_tot1_ordenado['FEnvio'], errors='coerce')
+
     else:
         print(f"No hay datos para subir a la tabla oracle:  {tab_ora}")                           
 
@@ -124,6 +132,8 @@ def subir_oracle_tot2(conexion, cursor, df_tot2_ordenado):
     if len(df_tot2_ordenado) > 0:
         print(f"\nUPDATE ORACLE {tab_ora}: se van a subir {len(df_tot2_ordenado)} registros\n")    
         print(df_tot2_ordenado)
+        df_tot2_ordenado['FEnvio'] = pd.to_datetime(df_tot2_ordenado['FEnvio'], errors='coerce')
+
     else:
         print(f"No hay datos para subir a la tabla oracle:  {tab_ora}")                           
 
@@ -158,6 +168,8 @@ def sTv_paso7(var_NombreSalida, var_EJERCICIO, var_TRIMESTRE):
 
         if (conexion != None) or (cursor != None):
             
+            borrar_resgistros(conexion, cursor, f"{var_EJERCICIO} - {var_TRIMESTRE}", sTv.var_Ora_TAB1)  # type: ignore
+
             subir_oracle_curl(conexion, cursor, df_curl_ordenado)
             subir_oracle_tot1(conexion, cursor, df_tot1_ordenado)
             subir_oracle_tot2(conexion, cursor, df_tot2_ordenado)
