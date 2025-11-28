@@ -46,27 +46,86 @@ def tratamiento_df(df_curl, df_tot1, df_tot2, var_EJERCICIO, var_TRIMESTRE):
 
 # Update Oracle: CNBV_EEFF_FILECURL
 def subir_oracle_curl(conexion, cursor, df_curl_ordenado):
+    tab_ora = sTv.var_Ora_TAB3   # type: ignore
     if len(df_curl_ordenado) > 0:
-        print(f"UPDATE ORACLE {sTv.var_Ora_TAB3}: se van a subir {len(df_curl_ordenado)} registros\n")      # type: ignore
+        print(f"UPDATE ORACLE {tab_ora}: se van a subir {len(df_curl_ordenado)} registros\n")      
         print(df_curl_ordenado)
+        print("------")
+        df_curl_ordenado['FEnvio'] = pd.to_datetime(df_curl_ordenado['FEnvio'], errors='coerce')
+        print(df_curl_ordenado['FEnvio'].dtype)
+        print("------")
+
+        # Recorro el DataFrame registro por registro
+        for index, row in df_curl_ordenado.iterrows():
+            v_Periodo         = row['Periodo']
+            v_ClavePizarra    = row['ClavePizarra']
+            v_Iden            = row['Iden']
+            v_FEnvio          = row['FEnvio']
+            v_Taxonomia       = row['Taxonomia']
+            v_FileXbrl        = row['FileXbrl']
+            v_TipoFile        = row['TipoFile']
+            v_CURL            = row['CURL']
+
+            # Normalizar NaN/NaT a None
+            if pd.isna(v_Iden):     #  revisar, en codigo ori bolsas no da error
+                v_Iden = None
+
+            try:
+                # Ejecutar INSERT con binds nombrados (oracledb)
+                # 
+                sql = f"""
+                INSERT INTO {tab_ora}               
+                    (Periodo, ClavePizarra, Iden, FEnvio, Taxonomia, FileXbrl, TipoFile, CURL)
+                VALUES
+                    (:Periodo, :ClavePizarra, :Iden, :FEnvio, :Taxonomia, :FileXbrl, :TipoFile, :CURL)
+                """  
+
+                params = {
+                    "Periodo": v_Periodo, 
+                    "ClavePizarra": v_ClavePizarra, 
+                    "Iden": v_Iden, 
+                    "FEnvio": v_FEnvio, 
+                    "Taxonomia": v_Taxonomia, 
+                    "FileXbrl": v_FileXbrl, 
+                    "TipoFile": v_TipoFile, 
+                    "CURL": v_CURL
+                }
+
+                cursor.execute(sql, params) 
+
+                print(Fore.CYAN + f"Registro {index + 1} insertado en el servidor PYTHON ORACLE ({v_Periodo})")  
+                print(Fore.WHITE + f"  {v_Periodo} - {v_ClavePizarra} - {v_Iden} - {v_FEnvio} - {v_Taxonomia} - {v_FileXbrl}")
+                print(Fore.WHITE + f"  {v_TipoFile} - {v_CURL}\n")
+
+            except Exception as e:
+                # Puedes afinar el manejo según el código de error (duplicado, constraint, etc.)
+                print(Fore.RED + f"Registro {index + 1} no insertado en el servidor PYTHON ORACLE: {e}") 
+                print(Fore.WHITE + f"  {v_Periodo} - {v_ClavePizarra} - {v_Iden} - {v_FEnvio} - {v_Taxonomia} - {v_FileXbrl}")
+                print(Fore.WHITE + f"  {v_TipoFile} - {v_CURL}\n")
+
+        # Oracle, Confirma los cambios
+        conexion.commit() 
+
     else:
-        print(f"No hay datos para subir a la tabla oracle:  {sTv.var_Ora_TAB3}")                            # type: ignore
+        print(f"No hay datos para subir a la tabla oracle:  {tab_ora}")                       
 
 # Update Oracle: CNBV_EEFF_TOTALES1
 def subir_oracle_tot1(conexion, cursor, df_tot1_ordenado):
+    tab_ora = sTv.var_Ora_TAB1   # type: ignore
     if len(df_tot1_ordenado) > 0:
-        print(f"\nUPDATE ORACLE {sTv.var_Ora_TAB1}: se van a subir {len(df_tot1_ordenado)} registros\n")    # type: ignore
+        print(f"\nUPDATE ORACLE {tab_ora}: se van a subir {len(df_tot1_ordenado)} registros\n")
         print(df_tot1_ordenado)
     else:
-        print(f"No hay datos para subir a la tabla oracle:  {sTv.var_Ora_TAB1}")                            # type: ignore
+        print(f"No hay datos para subir a la tabla oracle:  {tab_ora}")                           
 
 # Update Oracle: CNBV_EEFF_TOTALES2
 def subir_oracle_tot2(conexion, cursor, df_tot2_ordenado):
+    tab_ora = sTv.var_Ora_TAB2   # type: ignore
     if len(df_tot2_ordenado) > 0:
-        print(f"\nUPDATE ORACLE {sTv.var_Ora_TAB2}: se van a subir {len(df_tot2_ordenado)} registros\n")    # type: ignore
+        print(f"\nUPDATE ORACLE {tab_ora}: se van a subir {len(df_tot2_ordenado)} registros\n")    
         print(df_tot2_ordenado)
     else:
-        print(f"No hay datos para subir a la tabla oracle:  {sTv.var_Ora_TAB2}")                            # type: ignore
+        print(f"No hay datos para subir a la tabla oracle:  {tab_ora}")                           
 
 
 # ----------------------------------------------------------------------------------------
