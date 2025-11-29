@@ -43,7 +43,7 @@ def sTv_paso0(var_NombreSalida, var_EJERCICIO, var_TRIMESTRE, var_TipoDes):
     valida_carpetas(sTv.var_RutaXls)
 
     # Borra files descargados de CNBV
-    borrar_archivos(sTv.var_RutaWebFiles, f'*.html')      #  f'{var_NombreSalida}_*.html'
+    borrar_archivos(sTv.var_RutaWebFiles, f'{var_NombreSalida}_*.html')
     print(f'{sTv.var_RutaXls}{var_TipoDes}_{var_EJERCICIO}_{var_TRIMESTRE}__*.xlsx')
     borrar_archivos(sTv.var_RutaXls, f'{var_TipoDes}_{var_EJERCICIO}_{var_TRIMESTRE}__*.xlsx')       
     borrar_archivos(sTv.var_RutaInforme, f'{var_NombreSalida}_Datos.xlsx')
