@@ -80,8 +80,7 @@ def subir_oracle_curl(conexion, cursor, tabla_ora, df_curl_ordenado):
             v_CURL            = row['CURL']
 
             # Normalizar NaN/NaT a None
-            if pd.isna(v_Iden):
-                v_Iden = None
+            if pd.isna(v_Iden): v_Iden = None
 
             try:
                 # Ejecutar INSERT con binds nombrados (oracledb)
@@ -138,12 +137,9 @@ def subir_oracle_tot1(conexion, cursor, tabla_ora, df_tot1_ordenado):
             v_FileX           = row['File']
 
             # Normalizar NaN/NaT a None
-            if pd.isna(v_ColumnaA):
-                v_ColumnaA = None
-            if pd.isna(v_ColumnaB):
-                v_ColumnaB = 0
-            if pd.isna(v_ColumnaC):
-                v_ColumnaC = 0
+            if pd.isna(v_ColumnaA): v_ColumnaA = None
+            if pd.isna(v_ColumnaB): v_ColumnaB = 0
+            if pd.isna(v_ColumnaC): v_ColumnaC = 0
 
             try:
                 # Ejecutar INSERT con binds nombrados (oracledb)
@@ -201,9 +197,15 @@ def subir_oracle_tot2(conexion, cursor, tabla_ora, df_tot2_ordenado):
             v_UtilPerdOperacion     = row['UtilPerdOperacion']
             v_UtilPerdNeta          = row['UtilPerdNeta']
 
-            # Normalizar NaN/NaT a None
-            if pd.isna(v_Iden):
-                v_Iden = None
+            # Normalizar NaN/NaT a None or cero
+            if pd.isna(v_Iden): v_Iden = None
+            if pd.isna(v_TActivos): v_TActivos = 0
+            if pd.isna(v_TActivosCirculantes): v_TActivosCirculantes = 0
+            if pd.isna(v_TCapitalContable): v_TCapitalContable = 0
+            if pd.isna(v_TPasivosCirculantes): v_TPasivosCirculantes = 0
+            if pd.isna(v_TPasivos): v_TPasivos = 0
+            if pd.isna(v_UtilPerdOperacion): v_UtilPerdOperacion = 0
+            if pd.isna(v_UtilPerdNeta): v_UtilPerdNeta = 0
 
             try:
                 # Ejecutar INSERT con binds nombrados (oracledb)
