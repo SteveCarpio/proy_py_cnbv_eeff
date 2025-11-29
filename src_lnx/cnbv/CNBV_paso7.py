@@ -211,17 +211,18 @@ def subir_oracle_tot2(conexion, cursor, tabla_ora, df_tot2_ordenado):
                 # Ejecutar INSERT con binds nombrados (oracledb)
                 sql = f"""
                 INSERT INTO {tabla_ora}               
-                    (Periodo, ClavePizarra, Iden, FEnvio, Taxonomia, FileXbrl, TipoFile, CURL)
+                    (Periodo, ClavePizarra, Iden, FEnvio, Taxonomia, TActivos, TActivosCirculantes, TCapitalContable, 
+                    TPasivosCirculantes, TPasivos, UtilPerdOperacion, UtilPerdNeta)
                 VALUES
-                    (:Periodo, :ClavePizarra, :Iden, :FEnvio, :Taxonomia, :FileXbrl, :TipoFile, :CURL)
+                    (:Periodo, :ClavePizarra, :Iden, :FEnvio, :Taxonomia, :TActivos, :TActivosCirculantes, :TCapitalContable, 
+                    :TPasivosCirculantes, :TPasivos, :UtilPerdOperacion, :UtilPerdNeta)
                 """  
                 params = {
-                    "Periodo": v_Periodo, 
+                    "Periodo": v_Periodo,              # 1
                     "ClavePizarra": v_ClavePizarra, 
                     "Iden": v_Iden, 
                     "FEnvio": v_FEnvio, 
                     "Taxonomia": v_Taxonomia, 
-
                     "TActivos": v_TActivos, 
                     "TActivosCirculantes": v_TActivosCirculantes, 
                     "TCapitalContable": v_TCapitalContable,
@@ -294,6 +295,7 @@ def sTv_paso7(var_NombreSalida, var_EJERCICIO, var_TRIMESTRE):
             subir_oracle_tot1(conexion, cursor, tabla_tot1, df_tot1_ordenado)
 
             print(f"\n------------ PASO3: {tabla_tot2} ------------\n")
+            borrar_resgistros(conexion, cursor, tabla_tot2, periodo)
             subir_oracle_tot2(conexion, cursor, tabla_tot2, df_tot2_ordenado)
 
         # Cierro de conexiones Oracle y libero memoria
