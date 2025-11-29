@@ -63,9 +63,9 @@ def borrar_resgistros(conexion, cursor, tabla_ora, periodo):
 
 # Update Oracle: CNBV_EEFF_FILECURL
 def subir_oracle_curl(conexion, cursor, tabla_ora, df_curl_ordenado):
-    tab_ora = sTv.var_Ora_TAB3   # type: ignore
+
     if len(df_curl_ordenado) > 0:
-        print(f"\nINICIO: UPDATE ORACLE ({tab_ora}): se van a subir ({len(df_curl_ordenado)}) registros\n")      
+        print(f"\nINICIO: UPDATE ORACLE ({tabla_ora}): se van a subir ({len(df_curl_ordenado)}) registros\n")      
         df_curl_ordenado['FEnvio'] = pd.to_datetime(df_curl_ordenado['FEnvio'], errors='coerce')
         
         # Recorro el DataFrame registro por registro
@@ -86,7 +86,7 @@ def subir_oracle_curl(conexion, cursor, tabla_ora, df_curl_ordenado):
             try:
                 # Ejecutar INSERT con binds nombrados (oracledb)
                 sql = f"""
-                INSERT INTO {tab_ora}               
+                INSERT INTO {tabla_ora}               
                     (Periodo, ClavePizarra, Iden, FEnvio, Taxonomia, FileXbrl, TipoFile, CURL)
                 VALUES
                     (:Periodo, :ClavePizarra, :Iden, :FEnvio, :Taxonomia, :FileXbrl, :TipoFile, :CURL)
@@ -103,7 +103,7 @@ def subir_oracle_curl(conexion, cursor, tabla_ora, df_curl_ordenado):
                 }
                 cursor.execute(sql, params) 
 
-                print(Fore.CYAN + f"Registro {index + 1} insertado en el servidor PYTHON ORACLE ({tab_ora}:{v_Periodo})")  
+                print(Fore.CYAN + f"Registro {index + 1} insertado en el servidor PYTHON ORACLE ({tabla_ora}:{v_Periodo})")  
                 print(Fore.WHITE + f"  {v_Periodo} - {v_ClavePizarra} - {v_Iden} - {v_FEnvio} - {v_Taxonomia} - {v_FileXbrl}")
                 print(Fore.WHITE + f"  {v_TipoFile} - {v_CURL}\n")
                  
@@ -113,19 +113,19 @@ def subir_oracle_curl(conexion, cursor, tabla_ora, df_curl_ordenado):
                 print(Fore.WHITE + f"  {v_Periodo} - {v_ClavePizarra} - {v_Iden} - {v_FEnvio} - {v_Taxonomia} - {v_FileXbrl}")
                 print(Fore.WHITE + f"  {v_TipoFile} - {v_CURL}\n")
 
-        print(f"FIN: UPDATE ORACLE ({tab_ora}): se han subido ({len(df_curl_ordenado)}) registros\n")
+        print(f"FIN: UPDATE ORACLE ({tabla_ora}): se han subido ({len(df_curl_ordenado)}) registros\n")
 
         # Oracle, Confirma los cambios
         conexion.commit() 
     else:
-        print(f"No hay datos para subir a la tabla oracle:  {tab_ora}")                       
+        print(f"No hay datos para subir a la tabla oracle:  {tabla_ora}")                       
 
 # Update Oracle: CNBV_EEFF_TOTALES1
 def subir_oracle_tot1(conexion, cursor, tabla_ora, df_tot1_ordenado):
-    tab_ora = sTv.var_Ora_TAB1   # type: ignore
+    #tab_ora = sTv.var_Ora_TAB1   # type: ignore
   
     if len(df_tot1_ordenado) > 0:
-        print(f"\nINICIO: UPDATE ORACLE ({tab_ora}): se van a subir ({len(df_tot1_ordenado)}) registros\n")      
+        print(f"\nINICIO: UPDATE ORACLE ({tabla_ora}): se van a subir ({len(df_tot1_ordenado)}) registros\n")      
         
         # Recorro el DataFrame registro por registro
         for index, row in df_tot1_ordenado.iterrows():
@@ -148,7 +148,7 @@ def subir_oracle_tot1(conexion, cursor, tabla_ora, df_tot1_ordenado):
             try:
                 # Ejecutar INSERT con binds nombrados (oracledb)
                 sql = f"""
-                INSERT INTO {tab_ora}               
+                INSERT INTO {tabla_ora}               
                     (Periodo, Iden, Hoja, ColumnaA, ColumnaB, ColumnaC, FileX)
                 VALUES
                     (:Periodo, :Iden, :Hoja, :ColumnaA, :ColumnaB, :ColumnaC, :FileX)
@@ -164,7 +164,7 @@ def subir_oracle_tot1(conexion, cursor, tabla_ora, df_tot1_ordenado):
                 }
                 cursor.execute(sql, params) 
 
-                print(Fore.CYAN + f"Registro {index + 1} insertado en el servidor PYTHON ORACLE ({tab_ora}:{v_Periodo})")  
+                print(Fore.CYAN + f"Registro {index + 1} insertado en el servidor PYTHON ORACLE ({tabla_ora}:{v_Periodo})")  
                 print(Fore.WHITE + f"  {v_Periodo} - {v_Iden} - {v_Hoja} - {v_ColumnaA} - {v_ColumnaB} - {v_ColumnaC} - {v_FileX}\n")
                 
             except Exception as e:
@@ -172,25 +172,81 @@ def subir_oracle_tot1(conexion, cursor, tabla_ora, df_tot1_ordenado):
                 print(Fore.RED + f"******* Registro {index + 1} ERROR: no insertado en el servidor PYTHON ORACLE: {e} ********") 
                 print(Fore.WHITE + f"  {v_Periodo} - {v_Iden} - {v_Hoja} - {v_ColumnaA} - {v_ColumnaB} - {v_ColumnaC} - {v_FileX}\n")
 
-        print(f"FIN: UPDATE ORACLE ({tab_ora}): se han subido ({len(df_tot1_ordenado)}) registros\n") 
+        print(f"FIN: UPDATE ORACLE ({tabla_ora}): se han subido ({len(df_tot1_ordenado)}) registros\n") 
 
         # Oracle, Confirma los cambios
         conexion.commit() 
-
-
     else:
-        print(f"No hay datos para subir a la tabla oracle:  {tab_ora}")                           
+        print(f"No hay datos para subir a la tabla oracle:  {tabla_ora}")                           
 
 # Update Oracle: CNBV_EEFF_TOTALES2
 def subir_oracle_tot2(conexion, cursor, tabla_ora, df_tot2_ordenado):
-    tab_ora = sTv.var_Ora_TAB2   # type: ignore
-    if len(df_tot2_ordenado) > 0:
-        print(f"\nUPDATE ORACLE {tab_ora}: se van a subir {len(df_tot2_ordenado)} registros\n")    
-        print(df_tot2_ordenado)
-        df_tot2_ordenado['FEnvio'] = pd.to_datetime(df_tot2_ordenado['FEnvio'], errors='coerce')
 
+    if len(df_tot2_ordenado) > 0:
+        print(f"\nINICIO: UPDATE ORACLE ({tabla_ora}): se van a subir ({len(df_tot2_ordenado)}) registros\n")      
+        df_tot2_ordenado['FEnvio'] = pd.to_datetime(df_tot2_ordenado['FEnvio'], errors='coerce')
+        
+        # Recorro el DataFrame registro por registro
+        for index, row in df_tot2_ordenado.iterrows():
+            v_Periodo               = row['Periodo']
+            v_ClavePizarra          = row['ClavePizarra']
+            v_Iden                  = row['Iden']
+            v_FEnvio                = row['FEnvio']
+            v_Taxonomia             = row['Taxonomia']
+            v_TActivos              = row['TActivos']
+            v_TActivosCirculantes   = row['TActivosCirculantes']
+            v_TCapitalContable      = row['TCapitalContable']
+            v_TPasivosCirculantes   = row['TPasivosCirculantes']
+            v_TPasivos              = row['TPasivos']
+            v_UtilPerdOperacion     = row['UtilPerdOperacion']
+            v_UtilPerdNeta          = row['UtilPerdNeta']
+
+            # Normalizar NaN/NaT a None
+            if pd.isna(v_Iden):
+                v_Iden = None
+
+            try:
+                # Ejecutar INSERT con binds nombrados (oracledb)
+                sql = f"""
+                INSERT INTO {tabla_ora}               
+                    (Periodo, ClavePizarra, Iden, FEnvio, Taxonomia, FileXbrl, TipoFile, CURL)
+                VALUES
+                    (:Periodo, :ClavePizarra, :Iden, :FEnvio, :Taxonomia, :FileXbrl, :TipoFile, :CURL)
+                """  
+                params = {
+                    "Periodo": v_Periodo, 
+                    "ClavePizarra": v_ClavePizarra, 
+                    "Iden": v_Iden, 
+                    "FEnvio": v_FEnvio, 
+                    "Taxonomia": v_Taxonomia, 
+
+                    "TActivos": v_TActivos, 
+                    "TActivosCirculantes": v_TActivosCirculantes, 
+                    "TCapitalContable": v_TCapitalContable,
+                    "TPasivosCirculantes": v_TPasivosCirculantes,
+                    "TPasivos": v_TPasivos,
+                    "UtilPerdOperacion": v_UtilPerdOperacion,
+                    "UtilPerdNeta": v_UtilPerdNeta
+                }
+                cursor.execute(sql, params) 
+
+                print(Fore.CYAN + f"Registro {index + 1} insertado en el servidor PYTHON ORACLE ({tabla_ora}:{v_Periodo})")  
+                print(Fore.WHITE + f"  {v_Periodo} - {v_ClavePizarra} - {v_Iden} - {v_FEnvio} - {v_Taxonomia} - {v_TActivos} - {v_TActivosCirculantes}")
+                print(Fore.WHITE + f"  {v_TCapitalContable} - {v_TPasivosCirculantes} - {v_TPasivos} - {v_UtilPerdOperacion} - {v_UtilPerdNeta}\n")
+                 
+            except Exception as e:
+                # Puedes afinar el manejo según el código de error (duplicado, constraint, etc.)
+                print(Fore.RED + f"******* Registro {index + 1} ERROR: no insertado en el servidor PYTHON ORACLE: {e} ********") 
+                print(Fore.WHITE + f"  {v_Periodo} - {v_ClavePizarra} - {v_Iden} - {v_FEnvio} - {v_Taxonomia} - {v_TActivos} - {v_TActivosCirculantes}")
+                print(Fore.WHITE + f"  {v_TCapitalContable} - {v_TPasivosCirculantes} - {v_TPasivos} - {v_UtilPerdOperacion} - {v_UtilPerdNeta}\n")
+
+        print(f"FIN: UPDATE ORACLE ({tabla_ora}): se han subido ({len(df_tot2_ordenado)}) registros\n")
+
+        # Oracle, Confirma los cambios
+        conexion.commit() 
     else:
-        print(f"No hay datos para subir a la tabla oracle:  {tab_ora}")                           
+        print(f"No hay datos para subir a la tabla oracle:  {tabla_ora}")   
+                         
 
 
 # ----------------------------------------------------------------------------------------
