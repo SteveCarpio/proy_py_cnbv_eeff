@@ -7,6 +7,11 @@
 #  Fecha: 2025-11-26
 #################################################################################
 
+# === RUTA ORACLE ====
+export TNS_ADMIN=/opt/oracle/instantclient/network/admin
+export LD_LIBRARY_PATH=/opt/oracle/instantclient
+
+
 # === CONFIGURACIÓN GENERAL ===
 NOMBRE_BASH="CNBV_EEFF"
 NOMBRE_JOB="CNBV_EEFF_Main.py"
