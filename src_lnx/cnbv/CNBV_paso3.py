@@ -50,11 +50,12 @@ def sTv_paso3(var_NombreSalida, var_Entorno):
             print(df4.to_string())
             print(f"\n Existen {len(df4)} nuevas claves pizarra por validar")
             # Concatenamos ambos (el orden de las filas no importa en este momento)
-            df_ClavePizarra_Validar = pd.concat([df2, df4], ignore_index=True)
+            #df_ClavePizarra_Validar = pd.concat([df2, df4], ignore_index=True)       #  creamos el excel solo con las claves nuevas
             # Ordenamos por ClavePizarra
-            df_ClavePizarra_Validar = df_ClavePizarra_Validar.sort_values('ClavePizarra').reset_index(drop=True)
-            # Reemplaza el excel de "CNBV_EEFF_Claves_Pizarra" con los nuevas ClavesPizarra a validar
-            df_ClavePizarra_Validar.to_excel(f'{sTv.var_RutaConfig}CNBV_EEFF_Claves_Pizarra.xlsx', index=False)
+            #df_ClavePizarra_Validar = df_ClavePizarra_Validar.sort_values('ClavePizarra').reset_index(drop=True)  # ya no haría falta este paso
+            df_ClavePizarra_Validar  = df4.sort_values('ClavePizarra').reset_index(drop=True)
+            # Reemplaza el excel de "CNBV_EEFF_Claves_Pizarra_Validar" con los nuevas ClavesPizarra a validar
+            df_ClavePizarra_Validar.to_excel(f'{sTv.var_RutaConfig}CNBV_EEFF_Claves_Pizarra_Validar.xlsx', index=False)
 
         # Con los DATOS filtrados
         numRegDf = len(df3)
