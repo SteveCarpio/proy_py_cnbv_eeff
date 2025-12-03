@@ -28,15 +28,20 @@ def sTv_paso3(var_NombreSalida, var_Entorno):
 
         # Leo el excel con la lista de todos los curl a descargar
         df1 = pd.read_excel(f'{sTv.var_RutaInforme}{var_NombreSalida}_Datos.xlsx')
-        df1 = df1.rename(columns={'clavepizarra': 'CLAVEPIZARRA'})   #  para poder hacer el inner join
-
+        #df1 = df1.rename(columns={'clavepizarra': 'CLAVEPIZARRA'})   #  para poder hacer el inner join
+        df1.rename(columns={'ClavePizarra': 'CLAVEPIZARRA'}, inplace=True)
+        print(df1.columns)
 
         # Leo el excel con la lista filtrada y me quedo solo con el campo "ClavePizarra" de los "Activo" sea igual a "S"
         df2 = pd.read_excel(f'{sTv.var_RutaConfig}CNBV_EEFF_Claves_Pizarra.xlsx')
-        columna_iden = df2[df2['ACTIVO'] == 'S'][['CLAVEPIZARRA']]       # -- stv debe ser por ClavePizarra..
-
+        columna_iden = df2[df2['ACTIVO'] == 'S'][['CLAVEPIZARRA']]       # 1-- stv debe ser por ClavePizarra
+        print("--------")
+        print(columna_iden)
+        print("--------")
+        print(df1.iloc[:, [0, 1, 2]])
+        print("--------")
         ### PASO 1 - # Filtramos la tabla DATOS con solo las ClavesPizarra a tratar
-        df3 = df1.merge(columna_iden, on='CLAVEPIZARRA', how='inner')    # stv debe ser por ClavePizarra
+        df3 = df1.merge(columna_iden, on='CLAVEPIZARRA', how='inner')    # 2-- stv debe ser por ClavePizarra
 
         ### PASO 2 - # Comprobamos si hay nuevas Claves Pizarra
         idens_df2 = df2['CLAVEPIZARRA'].unique()          # .unique() evita duplicados, no es estrictamente necesario
@@ -51,13 +56,16 @@ def sTv_paso3(var_NombreSalida, var_Entorno):
             df4['ACTIVO'] = 'VALIDAR'   # creo nuevo campo
             print(df4.to_string())
             print(f"\n Existen {len(df4)} nuevas claves pizarra por validar")
-            # Concatenamos ambos (el orden de las filas no importa en este momento)
-            #df_ClavePizarra_Validar = pd.concat([df2, df4], ignore_index=True)       #  creamos el excel solo con las claves nuevas
             # Ordenamos por ClavePizarra
-            #df_ClavePizarra_Validar = df_ClavePizarra_Validar.sort_values('CLAVEPIZARRA').reset_index(drop=True)  # ya no haría falta este paso
             df_ClavePizarra_Validar  = df4.sort_values('CLAVEPIZARRA').reset_index(drop=True)
             # Reemplaza el excel de "CNBV_EEFF_Claves_Pizarra_Validar" con los nuevas ClavesPizarra a validar
             df_ClavePizarra_Validar.to_excel(f'{sTv.var_RutaConfig}CNBV_EEFF_Claves_Pizarra_Validar.xlsx', index=False)
+        else:
+            print(f"\n---- ({len(df4)}) CLAVES PIZARRA: Nuevas ---- [OK]")
+            # Creamos un DataFrame vacío
+            df = pd.DataFrame(columns=['CLAVEPIZARRA', 'ACTIVO'])
+            # Exportamos el DataFrame vacio a un archivo Excel
+            df.to_excel(f'{sTv.var_RutaConfig}CNBV_EEFF_Claves_Pizarra_Validar.xlsx', sheet_name="FILTRO" ,index=False)
 
         # Con los DATOS filtrados
         numRegDf = len(df3)
