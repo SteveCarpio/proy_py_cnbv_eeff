@@ -28,32 +28,34 @@ def sTv_paso3(var_NombreSalida, var_Entorno):
 
         # Leo el excel con la lista de todos los curl a descargar
         df1 = pd.read_excel(f'{sTv.var_RutaInforme}{var_NombreSalida}_Datos.xlsx')
+        df1 = df1.rename(columns={'clavepizarra': 'CLAVEPIZARRA'})   #  para poder hacer el inner join
+
 
         # Leo el excel con la lista filtrada y me quedo solo con el campo "ClavePizarra" de los "Activo" sea igual a "S"
         df2 = pd.read_excel(f'{sTv.var_RutaConfig}CNBV_EEFF_Claves_Pizarra.xlsx')
-        columna_iden = df2[df2['Activo'] == 'S'][['ClavePizarra']]       # stv debe ser por ClavePizarra
+        columna_iden = df2[df2['ACTIVO'] == 'S'][['CLAVEPIZARRA']]       # -- stv debe ser por ClavePizarra..
 
         ### PASO 1 - # Filtramos la tabla DATOS con solo las ClavesPizarra a tratar
-        df3 = df1.merge(columna_iden, on='ClavePizarra', how='inner')    # stv debe ser por ClavePizarra
+        df3 = df1.merge(columna_iden, on='CLAVEPIZARRA', how='inner')    # stv debe ser por ClavePizarra
 
         ### PASO 2 - # Comprobamos si hay nuevas Claves Pizarra
-        idens_df2 = df2['ClavePizarra'].unique()          # .unique() evita duplicados, no es estrictamente necesario
-        df4 = df1[~df1['ClavePizarra'].isin(idens_df2)]   # Filtrar df1: quedarnos con las filas cuyo Iden NO está en idens_df2      
-        df4 = df4[['ClavePizarra']] # nos queda solo con esos campos
+        idens_df2 = df2['CLAVEPIZARRA'].unique()          # .unique() evita duplicados, no es estrictamente necesario
+        df4 = df1[~df1['CLAVEPIZARRA'].isin(idens_df2)]   # Filtrar df1: quedarnos con las filas cuyo Iden NO está en idens_df2      
+        df4 = df4[['CLAVEPIZARRA']] # nos queda solo con esos campos
         df4 = df4.reset_index(drop=True)
         df4.index = pd.RangeIndex(start=1, stop=len(df4) + 1, step=1)
         
         # Validación si existe o no Nuevas ClavesPizarra
         if (len(df4) > 0):
             print(f"\n---- ({len(df4)}) CLAVES PIZARRA: Nuevas ---- [ATENCION]")
-            df4['Activo'] = 'VALIDAR'   # creo nuevo campo
+            df4['ACTIVO'] = 'VALIDAR'   # creo nuevo campo
             print(df4.to_string())
             print(f"\n Existen {len(df4)} nuevas claves pizarra por validar")
             # Concatenamos ambos (el orden de las filas no importa en este momento)
             #df_ClavePizarra_Validar = pd.concat([df2, df4], ignore_index=True)       #  creamos el excel solo con las claves nuevas
             # Ordenamos por ClavePizarra
-            #df_ClavePizarra_Validar = df_ClavePizarra_Validar.sort_values('ClavePizarra').reset_index(drop=True)  # ya no haría falta este paso
-            df_ClavePizarra_Validar  = df4.sort_values('ClavePizarra').reset_index(drop=True)
+            #df_ClavePizarra_Validar = df_ClavePizarra_Validar.sort_values('CLAVEPIZARRA').reset_index(drop=True)  # ya no haría falta este paso
+            df_ClavePizarra_Validar  = df4.sort_values('CLAVEPIZARRA').reset_index(drop=True)
             # Reemplaza el excel de "CNBV_EEFF_Claves_Pizarra_Validar" con los nuevas ClavesPizarra a validar
             df_ClavePizarra_Validar.to_excel(f'{sTv.var_RutaConfig}CNBV_EEFF_Claves_Pizarra_Validar.xlsx', index=False)
 
